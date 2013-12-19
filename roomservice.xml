@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="CyanogenMod/android_device_samsung_jflteatt" path="device/samsung/jflteatt" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_qcom-common" path="device/samsung/qcom-common" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_msm8960-common" path="device/samsung/msm8960-common" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_jf-common" path="device/samsung/jf-common" remote="github" />
+  <!-- <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" /> -->
+  <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" revision="refs/heads/wip-ml4" />
+  <project name="CyanogenMod/android_hardware_samsung" path="hardware/samsung" remote="github" />
+  <project name="CyanogenMod/android_packages_apps_Trebuchet" path="packages/apps/Trebuchet" remote="github" />
+</manifest>
