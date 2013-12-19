@@ -193,8 +193,8 @@ function clean_up_gerrit()
    
    AFFECTED_PATHS=(
        'device/samsung/jf-common'
-       'kernel/samsung/jf'
        'device/samsung/msm8960-common'
+       'frameworks/base'
        'android'
        'system/core'
        'external/koush/Superuser'
@@ -252,14 +252,12 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-       `# kernel/samsung/jf` \
-       'http://review.cyanogenmod.org/#/c/56075/' `# sensorhub: update to 4.4.2 drop (ML4)` \
        `# device/samsung/msm8960-common` \
-       'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is n olonger a module` \
+       'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
-       `# vendor/cm` \
-       'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# system/core` \
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
@@ -276,7 +274,9 @@ function apply_gerrit_picks()
    
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-      # Problem: other values needed don't exist yet.
+      # `# device/samsung/msm8960-common` \
+      # 'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
+      # Problem: Requires use of new kernel branch:  other values needed don't exist yet. https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
       # `# android` \
       # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
