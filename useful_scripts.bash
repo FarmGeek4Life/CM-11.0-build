@@ -250,14 +250,12 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-       `# device/samsung/msm8960-common` \
-       'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/55072/' `# Update immersive confirmation` \
        `# system/core` \
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
@@ -276,24 +274,25 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
       # `# device/samsung/msm8960-common` \
       # 'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
-      # Problem: Requires use of new kernel branch:  other values needed don't exist yet. https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
+      # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
+      # `# frameworks/base` \
+      # 'http://review.cyanogenmod.org/#/c/56100/' `# Squashed fixes for Statusbar Clock and Date actions` \
       # `# android` \
       # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
+      # `# packages/apps/Settings` \
+      # 'http://review.cyanogenmod.org/#/c/56095/' `# [WIP] Forward port sound settings (1/2)` \
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
    
-   # frameworks/base
-   # http://review.cyanogenmod.org/#/c/55209/
-   # [WIP] Forward port Status Bar interface (1/2)
-   #git fetch http://review.cyanogenmod.org/CyanogenMod/android_frameworks_base refs/changes/09/55209/12 && git cherry-pick FETCH_HEAD || GERRIT_SUCCESS=1
+   # `# frameworks/base` \
+   # http://review.cyanogenmod.org/#/c/55209/' `# [WIP] Forward port Status Bar interface (1/2)` \
    # Can't build: 12/16/2013 5:00PM
    
-   # packages/apps/Settings
-   # http://review.cyanogenmod.org/#/c/55211/
-   # [WIP] Forward port Status Bar settings (2/2)
+   # `# packages/apps/Settings` \
+   # 'http://review.cyanogenmod.org/#/c/55211/' `# [WIP] Forward port Status Bar settings (2/2)` \
    
    popd
    return $GERRIT_SUCCESS
