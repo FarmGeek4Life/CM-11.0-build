@@ -254,8 +254,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/55072/' `# Update immersive confirmation` \
        `# system/core` \
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
