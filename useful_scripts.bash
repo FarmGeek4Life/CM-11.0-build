@@ -250,10 +250,14 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+       `# device/samsung/qcom-common` \
+       'http://review.cyanogenmod.org/#/c/56101/' `# qcom-common: dex-opt to cache partition` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/55881/' `# Close sockets on wpa_supplicant termination` \
        `# system/core` \
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
