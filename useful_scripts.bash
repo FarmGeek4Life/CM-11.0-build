@@ -199,6 +199,7 @@ function clean_up_gerrit()
        'system/core'
        'external/koush/Superuser'
        'vendor/cm'
+       'device/samsung/qcom-common'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -250,8 +251,6 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# device/samsung/qcom-common` \
-       'http://review.cyanogenmod.org/#/c/56101/' `# qcom-common: dex-opt to cache partition` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# frameworks/base` \
