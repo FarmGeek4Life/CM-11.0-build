@@ -255,8 +255,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/55881/' `# Close sockets on wpa_supplicant termination` \
        `# system/core` \
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
@@ -273,8 +271,22 @@ function apply_gerrit_picks()
    
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
+      # `# device/samsung/jf-common` \
+      # 'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
+      # `# device/samsung/jf-common` \
+      # 'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
+      # `# device/samsung/jf-common` \
+      # 'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
+      # `# device/samsung/jf-common` \
+      # 'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
       # `# device/samsung/msm8960-common` \
       # 'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
+      # `# device/samsung/msm8960-common` \
+      # 'http://review.cyanogenmod.org/#/c/56162/' `# msm8960: Remove obsolete flags` \
+      # `# device/samsung/msm8960-common` \
+      # 'http://review.cyanogenmod.org/#/c/56163/' `# msm8960: camera: Add flag to disable face detection` \
+      # `# device/samsung/msm8960-common` \
+      # 'http://review.cyanogenmod.org/#/c/56164/' `# msm8960: camera: Use hw_get_module_by_class` \
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
       # `# frameworks/base` \
       # 'http://review.cyanogenmod.org/#/c/56100/' `# Squashed fixes for Statusbar Clock and Date actions` \
