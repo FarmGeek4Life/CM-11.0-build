@@ -270,6 +270,8 @@ function apply_gerrit_picks()
    emacs device/samsung/jf-common/rootdir/etc/fstab.qcom && GERRIT_SUCCESS=$TEMP_SUCCESS
    
       # `# device/samsung/jf-common` \
+      # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+      # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
