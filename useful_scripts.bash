@@ -259,6 +259,8 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
+       `# packages/apps/Settings` \
+       'http://review.cyanogenmod.org/#/c/56095/' `# [WIP] Forward port sound settings (1/2)` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
@@ -271,6 +273,7 @@ function apply_gerrit_picks()
    
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+      # DO NOT USE ABOVE WITH NEW KERNEL PATCHES: particularly 56214: jf: Remove the GPS header
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
       # `# device/samsung/jf-common` \
