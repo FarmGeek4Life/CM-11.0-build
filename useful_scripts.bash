@@ -246,30 +246,10 @@ function apply_gerrit_picks()
    # Enter the directory
    pushd $BASE_DIR
    
-   clean_up_gerrit $VERSION_CODE
-   
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56171/' `# jf: Update the blob list for ML4` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
-       `# android` \
-       'http://review.cyanogenmod.org/#/c/56137/' `# Remove qrngd` \
-       `# device/samsung/msm8960-common` \
-       'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
