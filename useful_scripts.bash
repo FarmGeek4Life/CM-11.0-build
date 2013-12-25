@@ -208,7 +208,8 @@ function clean_up_gerrit()
       if [ -d "${i}" ]; then
 	 echo -e "${TEXT_RED}Resetting directory: ${i}${TEXT_RESET}"
 	 pushd ${i}
-	 git reset --hard
+	 SHA=$(git status | grep -E -o -e "[a-fA-F0-9]{7}")
+	 git reset --hard $SHA
 	 git clean -fdx
 	 popd
       fi
@@ -251,6 +252,24 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56171/' `# jf: Update the blob list for ML4` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
+       `# android` \
+       'http://review.cyanogenmod.org/#/c/56137/' `# Remove qrngd` \
+       `# device/samsung/msm8960-common` \
+       'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
@@ -261,8 +280,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
-       `# packages/apps/Settings` \
-       'http://review.cyanogenmod.org/#/c/56095/' `# [WIP] Forward port sound settings (1/2)` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
@@ -292,6 +309,7 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
+      # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
       # `# android` \
       # 'http://review.cyanogenmod.org/#/c/56137/' `# Remove qrngd` \
       # `# device/samsung/msm8960-common` \
@@ -304,7 +322,7 @@ function apply_gerrit_picks()
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
       # `# packages/apps/Settings` \
-      # 'http://review.cyanogenmod.org/#/c/56095/' `# [WIP] Forward port sound settings (1/2)` \
+      # 'http://review.cyanogenmod.org/#/c/56095/' `# Forward port sound settings` \
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1

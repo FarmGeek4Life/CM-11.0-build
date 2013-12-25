@@ -157,12 +157,8 @@ for change in sys.argv[1:]:
     print("--- END ---")
     sys.exit(1)
 
-  #exit_status, output, error = run_command(
-  #  [ 'git', 'merge', '--no-edit', 'FETCH_HEAD' ],
-  #  cwd = projectpath
-  #)
   exit_status, output, error = run_command(
-    [ 'git', 'cherry-pick', '--no-edit', 'FETCH_HEAD' ],
+    [ 'git', 'merge', '--no-edit', 'FETCH_HEAD' ],
     cwd = projectpath
   )
   if exit_status != 0:
