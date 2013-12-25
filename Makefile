@@ -51,10 +51,10 @@ setup:
 	. ~/android/useful_scripts.bash; apply_gerrit_picks 11.0
 
 11.0_sync:
-	pushd system; (repo sync -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	pushd system; (repo sync -j64 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 11.0_sync_clean:
-	pushd system; (repo sync -d -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	pushd system; (repo sync -d -j64 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 11.0_fix_Trebuchet:
 	-rm -rf /home/brysoncg/android/system/device/samsung/jf-common/overlay/packages/apps/Trebuchet
