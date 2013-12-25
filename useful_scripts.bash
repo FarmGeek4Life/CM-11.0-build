@@ -253,6 +253,8 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
+       `# vendor/cm` \
+       'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# system/core` \

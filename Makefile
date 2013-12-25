@@ -24,7 +24,9 @@ setup:
 	mv *jflteatt* oldBuilds/ ; \
 	popd
 
-11.0: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_sync_clean 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_build 11.0_unpatch_highsense
+11.0: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_sync_clean 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_fix_Trebuchet 11.0_build 11.0_unpatch_highsense
+
+11.0_nosync: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_build 11.0_unpatch_highsense
 
 11.0_base: setup 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_sync_clean 11.0_ensure_prebuilts 11.0_build 11.0_upload
 
@@ -49,10 +51,13 @@ setup:
 	. ~/android/useful_scripts.bash; apply_gerrit_picks 11.0
 
 11.0_sync:
-	pushd system; (repo sync && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	pushd system; (repo sync -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 11.0_sync_clean:
-	pushd system; (repo sync -d && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	pushd system; (repo sync -d -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
+
+11.0_fix_Trebuchet:
+	-rm -rf /home/brysoncg/android/system/device/samsung/jf-common/overlay/packages/apps/Trebuchet
 
 11.0_build:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
