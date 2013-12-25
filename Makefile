@@ -26,7 +26,9 @@ setup:
 
 11.0: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_sync_clean 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_fix_Trebuchet 11.0_build 11.0_unpatch_highsense
 
-11.0_nosync: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_build 11.0_unpatch_highsense
+11.0_nosync: 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_patch_gerrit 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_fix_Trebuchet 11.0_build 11.0_unpatch_highsense
+
+11.0_build_all: 11.0_patch_highsense 11.0_ensure_prebuilts 11.0_fix_Trebuchet 11.0_build 11.0_unpatch_highsense
 
 11.0_base: setup 11.0_unpatch_highsense 11.0_clean_gerrit 11.0_sync_clean 11.0_ensure_prebuilts 11.0_build 11.0_upload
 
