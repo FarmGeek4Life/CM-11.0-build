@@ -292,12 +292,6 @@ function apply_gerrit_picks()
       # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
       # `# android` \
       # 'http://review.cyanogenmod.org/#/c/56137/' `# Remove qrngd` \
-      # `# device/samsung/msm8960-common` \
-      # 'http://review.cyanogenmod.org/#/c/56102/' `# samsung krait: add msm8974 to build barrier` \
-      # `# device/samsung/msm8960-common` \
-      # 'http://review.cyanogenmod.org/#/c/56069/' `# msm8960: WiFi is no longer a module` \
-      # `# device/samsung/msm8960-common` \
-      # 'http://review.cyanogenmod.org/#/c/56376/' `# msm8960/msm8974 fixup build when compiling without qualcomm hardware` \
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
       # `# frameworks/base` \
       # 'http://review.cyanogenmod.org/#/c/56100/' `# Squashed fixes for Statusbar Clock and Date actions` \
