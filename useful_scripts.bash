@@ -250,6 +250,8 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+       `# device/samsung/qcom-common` \
+       'http://review.cyanogenmod.org/#/c/56103/' `# qcom-common: msm8974 to build barrier and add updated init files` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
