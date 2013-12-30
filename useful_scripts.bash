@@ -98,6 +98,7 @@ function apply_highsense_patches()
    
    pushd $BASE_DIR
    PATCHES="/home/brysoncg/android/highsense/$VERSION$VANILLA_PATH"
+   MY_PATCHES="/home/brysoncg/android/CM-11.0-build/my-patches"
    echo -ne "${TEXT_GREEN}"
    echo "Using patch file directory: ${PATCHES}"
    echo -ne "${TEXT_RESET}"
@@ -164,6 +165,22 @@ function apply_highsense_patches()
 	 PATCH_SUCCESS=1
       fi
    popd
+
+   pushd device/samsung/jf-common
+      echo "$(pwd)"
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t /dalvik_fix.patch"
+      echo -ne "${TEXT_RESET}"
+      patch $PATCH_ARGS < ${MY_PATCHES}/dalvik_fix.patch
+      if [ $(ls -1 device/samsung/jf-common.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 device/samsung/jf-common.mk.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+   popd
+
    if [ "$PATCH_MODE" == "P" ]; then
       touch highsense_patched$VANILLA_PATH
    else
@@ -250,6 +267,12 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
+       `# packages/apps/Settings` \
+       'http://review.cyanogenmod.org/#/c/56095/' `# Forward port sound settings` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/55209/' `# Forward port Status Bar interface (1/2)` \
+       `# packages/apps/Settings` \
+       'http://review.cyanogenmod.org/#/c/55211/' `# Forward port Status Bar settings (2/2)` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
@@ -293,27 +316,21 @@ function apply_gerrit_picks()
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
       # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
-      # `# android` \
-      # 'http://review.cyanogenmod.org/#/c/56137/' `# Remove qrngd` \
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
-      # `# frameworks/base` \
-      # 'http://review.cyanogenmod.org/#/c/56100/' `# Squashed fixes for Statusbar Clock and Date actions` \
       # `# android` \
       # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
       # `# packages/apps/Settings` \
       # 'http://review.cyanogenmod.org/#/c/56095/' `# Forward port sound settings` \
+      # `# frameworks/base` \
+      # 'http://review.cyanogenmod.org/#/c/55209/'  `# Forward port Status Bar interface (1/2)` \
+      # `# packages/apps/Settings` \
+      # 'http://review.cyanogenmod.org/#/c/55211/' `# Forward port Status Bar settings (2/2)` \
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
    
-   # `# frameworks/base` \
-   # http://review.cyanogenmod.org/#/c/55209/' `# [WIP] Forward port Status Bar interface (1/2)` \
-   # Can't build: 12/16/2013 5:00PM
-   
-   # `# packages/apps/Settings` \
-   # 'http://review.cyanogenmod.org/#/c/55211/' `# [WIP] Forward port Status Bar settings (2/2)` \
    
    popd
    return $GERRIT_SUCCESS
