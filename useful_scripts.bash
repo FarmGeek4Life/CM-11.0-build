@@ -216,7 +216,7 @@ function clean_up_gerrit()
        'system/core'
        'external/koush/Superuser'
        'vendor/cm'
-       'device/samsung/qcom-common'
+       'packages/apps/Settings'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -267,8 +267,20 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# packages/apps/Settings` \
-       'http://review.cyanogenmod.org/#/c/56095/' `# Forward port sound settings` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56171/' `# jf: Update the blob list for ML4` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/55209/' `# Forward port Status Bar interface (1/2)` \
        `# packages/apps/Settings` \
@@ -321,8 +333,6 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
-      # `# packages/apps/Settings` \
-      # 'http://review.cyanogenmod.org/#/c/56095/' `# Forward port sound settings` \
       # `# frameworks/base` \
       # 'http://review.cyanogenmod.org/#/c/55209/'  `# Forward port Status Bar interface (1/2)` \
       # `# packages/apps/Settings` \
