@@ -32,7 +32,7 @@ clean_build_uniques:
 	rm -rf cm-*; \
 	popd
 
-11.0: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
+11.0: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet clean_build_uniques build unpatch_highsense
 
 autosync: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet
 
