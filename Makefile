@@ -24,6 +24,14 @@ setup:
 	mv *jflteatt* oldBuilds/ ; \
 	popd
 
+clean_build_uniques:
+	pushd /home/brysoncg/android/system/out/target/product/jflteatt /; \
+	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
+	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
+	rm -rf cm_jf*; \
+	rm -rf cm-*; \
+	popd
+
 11.0: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
 
 autosync: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet
