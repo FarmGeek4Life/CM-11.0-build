@@ -218,6 +218,8 @@ function clean_up_gerrit()
        'external/koush/Superuser'
        'vendor/cm'
        'packages/apps/Settings'
+       'packages/apps/Camera2'
+       'packages/apps/Gallery2'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -287,10 +289,16 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/55209/' `# Forward port Status Bar interface (1/2)` \
        `# packages/apps/Settings` \
        'http://review.cyanogenmod.org/#/c/55211/' `# Forward port Status Bar settings (2/2)` \
+       `# packages/apps/Camera2` \
+       'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (1/2)` \
+       `# packages/apps/Gallery2` \
+       'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (2/2)` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
        'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/56944/' `# overlay: remove Trebuchet overlays` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# system/core` \
