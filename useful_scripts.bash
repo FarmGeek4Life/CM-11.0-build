@@ -19,24 +19,24 @@ function fix_highsense()
    #emacs ~/android/highsense/cm-11.0/high-touch-sensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch &
    PATCH_OPEN=0
    
-   #~/android/system11.0/packages/apps/Settings/
-   if [ -f ~/android/system11.0/packages/apps/Settings/res/xml/display_settings.xml.orig ]; then
-      emacs ~/android/system11.0/packages/apps/Settings/res/xml/display_settings.xml &
-      emacs ~/android/system11.0/packages/apps/Settings/res/xml/display_settings.xml.orig &
+   #~/android/system/packages/apps/Settings/
+   if [ -f ~/android/system/packages/apps/Settings/res/xml/display_settings.xml.orig ]; then
+      emacs ~/android/system/packages/apps/Settings/res/xml/display_settings.xml &
+      emacs ~/android/system/packages/apps/Settings/res/xml/display_settings.xml.orig &
       emacs ~/android/highsense/cm-11.0/high-touch-sensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch &
       PATCH_OPEN=1
    fi
-   if [ -f ~/android/system11.0/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig ]; then
-      emacs ~/android/system11.0/packages/apps/Settings/src/com/android/settings/DisplaySettings.java &
-      emacs ~/android/system11.0/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig &
+   if [ -f ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig ]; then
+      emacs ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java &
+      emacs ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig &
       if [ $PATCH_OPEN -eq 0 ]; then
 	 emacs ~/android/highsense/cm-11.0/high-touch-sensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch &
       fi
    fi
-   if [ -f ~/android/system11.0/packages/apps/Settings/res/values/cm_strings.xml.orig ]; then
+   if [ -f ~/android/system/packages/apps/Settings/res/values/cm_strings.xml.orig ]; then
       emacs ~/android/highsense/cm-11.0/high-touch-sensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch &
-      emacs ~/android/system11.0/packages/apps/Settings/res/values/cm_strings.xml &
-      emacs ~/android/system11.0/packages/apps/Settings/res/values/cm_strings.xml.orig &
+      emacs ~/android/system/packages/apps/Settings/res/values/cm_strings.xml &
+      emacs ~/android/system/packages/apps/Settings/res/values/cm_strings.xml.orig &
    fi
 }
 
@@ -202,7 +202,8 @@ function clean_up_gerrit()
    TEXT_RESET='\e[0m'    # Reset
    
    if [ "$VERSION_CODE" != "11.0" ]; then
-      return 0
+      #return 0
+      VERSION_CODE=11.0
    fi
    
    # Enter the directory
@@ -244,7 +245,8 @@ function apply_gerrit_picks()
    BASE_DIR="/home/brysoncg/android/system$VERSION_CODE"
    
    if [ "$VERSION_CODE" != "11.0" ]; then
-      return 0
+      #return 0
+      VERSION_CODE=11.0
    fi
    
    GERRIT_SUCCESS=0      # Shell style status: 0 for good, >0 for error
