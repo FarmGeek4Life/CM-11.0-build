@@ -26,11 +26,13 @@ setup:
 
 11.0: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
 
+autosync: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet
+
 nosync: unpatch_highsense clean_gerrit patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
 
 build_all: patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
 
-base: setup unpatch_highsense clean_gerrit sync_clean ensure_prebuilts build 11.0_upload
+base: setup unpatch_highsense clean_gerrit sync_clean ensure_prebuilts build upload
 
 vanilla: setup unpatch_highsense clean_gerrit sync_clean patch_highsense_vanilla ensure_prebuilts build upload unpatch_highsense
 
