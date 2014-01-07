@@ -10,15 +10,6 @@ setup:
 	. useful_scripts.bash
 
 11.0_setup: setup
-	$(eval zipfile = $(wildcard /home/brysoncg/android/system/out/target/product/jflteatt/*-UNOFFICIAL-jflteatt.zip) )
-	$(eval md5 =  $(wildcard /home/brysoncg/android/system/out/target/product/jflteatt/*-UNOFFICIAL-jflteatt.zip.md5sum) )
-	$(eval ota =  $(wildcard /home/brysoncg/android/system/out/target/product/jflteatt/cm_jflteatt-ota-*.zip) )
-#	pushd /home/brysoncg/android/system/out/target/product/jflteatt /; \
-#	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
-#	mv $(zipfile) oldBuilds/ ; \
-#	mv $(md5) oldBuilds/ ; \
-#	mv $(ota) oldBuilds/ ; \
-#	popd
 	pushd /home/brysoncg/android/system/out/target/product/jflteatt /; \
 	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
 	mv *jflteatt* oldBuilds/ ; \
@@ -32,13 +23,13 @@ clean_build_uniques:
 	rm -rf cm-*; \
 	popd
 
-11.0: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet clean_build_uniques build unpatch_highsense
+11.0: 11.0_setup unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts clean_build_uniques build upload unpatch_highsense
 
-autosync: unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet
+autosync: 11.0_setup unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts
 
-nosync: unpatch_highsense clean_gerrit patch_gerrit patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
+nosync: unpatch_highsense clean_gerrit patch_gerrit patch_highsense ensure_prebuilts build unpatch_highsense
 
-build_all: patch_highsense ensure_prebuilts fix_Trebuchet build unpatch_highsense
+build_all: 11.0_setup patch_highsense ensure_prebuilts build upload unpatch_highsense
 
 base: setup unpatch_highsense clean_gerrit sync_clean ensure_prebuilts build upload
 
@@ -68,23 +59,13 @@ sync:
 sync_clean:
 	pushd system; (repo sync -d -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
-fix_Trebuchet:
-	-rm -rf /home/brysoncg/android/system/device/samsung/jf-common/overlay/packages/apps/Trebuchet
-
 build:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
 	pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 upload:
-#	$(eval zipfile = $(ls /home/brysoncg/android/system/out/target/product/jflteatt/cm-11-201?????-UNOFFICIAL-jflteatt.zip) )
-#	$(eval md5 = $(ls /home/brysoncg/android/system/out/target/product/jflteatt/cm-11-201?????-UNOFFICIAL-jflteatt.zip.md5sum) )
-	$(eval zipfile = $(wildcard /home/brysoncg/android/system/out/target/product/jflteatt/*-UNOFFICIAL-jflteatt.zip) )
-	$(eval md5 =  $(wildcard /home/brysoncg/android/system/out/target/product/jflteatt/*-UNOFFICIAL-jflteatt.zip.md5sum) )
-	curl -n -T $(zipfile) ftp://192.168.9.1/data/
-	curl -n -T $(md5) ftp://192.168.9.1/data/
+	pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/; popd
 	pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
-#	curl -n -T /home/brysoncg/android/system/out/target/product/jflteatt/cm-11-201?????-UNOFFICIAL-jflteatt.zip ftp://192.168.9.1/data/
-#	curl -n -T /home/brysoncg/android/system/out/target/product/jflteatt/cm-11-201?????-UNOFFICIAL-jflteatt.zip.md5sum ftp://192.168.9.1/data/
 
 clean_highsense_errors: setup
 #	-rm system/packages/apps/Settings/res/xml/display_settings.xml.*
