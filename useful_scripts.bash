@@ -271,24 +271,6 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56171/' `# jf: Update the blob list for ML4` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/55209/' `# Forward port Status Bar interface (1/2)` \
-       `# packages/apps/Settings` \
-       'http://review.cyanogenmod.org/#/c/55211/' `# Forward port Status Bar settings (2/2)` \
        `# packages/apps/Camera2` \
        'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (1/2)` \
        `# packages/apps/Gallery2` \
@@ -297,8 +279,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
        'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/56944/' `# overlay: remove Trebuchet overlays` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# system/core` \
@@ -343,10 +323,6 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
-      # `# frameworks/base` \
-      # 'http://review.cyanogenmod.org/#/c/55209/'  `# Forward port Status Bar interface (1/2)` \
-      # `# packages/apps/Settings` \
-      # 'http://review.cyanogenmod.org/#/c/55211/' `# Forward port Status Bar settings (2/2)` \
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
