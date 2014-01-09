@@ -179,6 +179,17 @@ function apply_highsense_patches()
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t /no_wifi_module.patch"
+      echo -ne "${TEXT_RESET}"
+      #patch $PATCH_ARGS < ${MY_PATCHES}/no_wifi_module.patch
+      if [ $(ls -1 device/samsung/BoardConfigCommon.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 device/samsung/BoardConfigCommon.mk.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
    popd
 
    if [ "$PATCH_MODE" == "P" ]; then
@@ -301,6 +312,7 @@ function apply_gerrit_picks()
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
       # DO NOT USE ABOVE WITH NEW KERNEL PATCHES: particularly 56214: jf: Remove the GPS header
+      ########## REMEMBER WIFI MODULE PATCH IN HIGHSENSE PATCH GROUP!!!!!!
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
       # `# device/samsung/jf-common` \
@@ -326,11 +338,6 @@ function apply_gerrit_picks()
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
-   
-   pushd device/samsung/jf-common
-      # Revert commit of "jf: wifi is still a module."
-      #git revert adb469c2b8 || GERRIT_SUCCESS=1
-   popd
    
    popd
    return $GERRIT_SUCCESS
