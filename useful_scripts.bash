@@ -285,7 +285,7 @@ function apply_gerrit_picks()
        `# packages/apps/Camera2` \
        'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (1/2)` \
        `# packages/apps/Gallery2` \
-       'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (2/2)` \
+       'http://review.cyanogenmod.org/#/c/56902/' `# Storage configuration options (2/2)` \
        `# android` \
        'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
