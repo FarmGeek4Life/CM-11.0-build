@@ -327,6 +327,10 @@ function apply_gerrit_picks()
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
    
+   pushd device/samsung/jf-common
+      # Revert commit of "jf: wifi is still a module."
+      git revert adb469c2b8 ||GERRIT_SUCCESS=1
+   popd
    
    popd
    return $GERRIT_SUCCESS
