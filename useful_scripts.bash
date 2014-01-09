@@ -329,7 +329,7 @@ function apply_gerrit_picks()
    
    pushd device/samsung/jf-common
       # Revert commit of "jf: wifi is still a module."
-      git revert adb469c2b8 ||GERRIT_SUCCESS=1
+      #git revert adb469c2b8 || GERRIT_SUCCESS=1
    popd
    
    popd
