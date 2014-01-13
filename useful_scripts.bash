@@ -42,7 +42,7 @@ function fix_highsense()
 
 export -f fix_highsense
 
-function apply_highsense_patches()
+function apply_custom_patches()
 {
    VERSION_CODE="$1" # Valid values: depends on existing directories
    PATCH_MODE="$2"   # Valid values: 'P' and 'R' (patch and reverse)
@@ -68,11 +68,11 @@ function apply_highsense_patches()
    if [ ! -f $BASE_DIR/highsense_patched* ] && [ "$PATCH_MODE" == "P" ]; then
       PATCH_ARGS="-p1"
       PATCH_STAT="PATCH APPLY"
-   elif [ -f $BASE_DIR/highsense_patched* ] && [ "$PATCH_MODE" == "R" ]; then
+   elif [ -f $BASE_DIR/custom_patched* ] && [ "$PATCH_MODE" == "R" ]; then
       PATCH_ARGS="-R -p1"
       PATCH_STAT="PATCH REVERT"
       VANILLA=0        # Automatically set/unset VANILLA mode when reverting
-      if [ -f $BASE_DIR/highsense_patched_vanilla ]; then
+      if [ -f $BASE_DIR/custom_patched_vanilla ]; then
 	 VANILLA=1
       fi
    elif [ "$PATCH_MODE" == "P" ] || [ "$PATCH_MODE" == "R" ]; then
@@ -103,10 +103,12 @@ function apply_highsense_patches()
    echo "Using patch file directory: ${PATCHES}"
    echo -ne "${TEXT_RESET}"
    HIGHTOUCHSENSITIVITY=${PATCHES}/high-touch-sensitivity
+   GOOGLEDIALER=/home/brysoncg/android/xiaolong_chen/hudson/roms/cm-11.0/google-dialer
+   
    pushd packages/apps/Settings/
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /0001-Samsung-add-support-for-high-touch-sensitivity.patch"
+      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
       patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Add-preferences-for-high-touch-sensitivity.patch
       if [ $(ls -1 res/xml/display_settings.xml.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -124,7 +126,7 @@ function apply_highsense_patches()
 	 PATCH_SUCCESS=1
       fi
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /0001-Auto-copied-translations-for-high-touch-sensitivity.patch"
+      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
       patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Auto-copied-translations-for-high-touch-sensitivity.patch
       if [ $(ls -1 res/values*/*xml.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -139,7 +141,7 @@ function apply_highsense_patches()
    pushd frameworks/opt/hardware/
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /0001-Hardware-Add-high-touch-sensitivity-support.patch"
+      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Hardware-Add-high-touch-sensitivity-support.patch"
       echo -ne "${TEXT_RESET}"
       patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Hardware-Add-high-touch-sensitivity-support.patch
       if [ $(ls -1 src/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -154,7 +156,7 @@ function apply_highsense_patches()
    pushd hardware/samsung/
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /0001-Samsung-add-support-for-high-touch-sensitivity.patch"
+      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
       patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Samsung-add-support-for-high-touch-sensitivity.patch
       if [ $(ls -1 cmhw/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -169,7 +171,7 @@ function apply_highsense_patches()
    pushd device/samsung/jf-common
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /dalvik_fix.patch"
+      echo -e "$PATCH_STAT:\t\t my_patches/dalvik_fix.patch"
       echo -ne "${TEXT_RESET}"
       patch $PATCH_ARGS < ${MY_PATCHES}/dalvik_fix.patch
       if [ $(ls -1 device/samsung/jf-common.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -180,7 +182,7 @@ function apply_highsense_patches()
 	 PATCH_SUCCESS=1
       fi
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t /no_wifi_module.patch"
+      echo -e "$PATCH_STAT:\t\t my_patches/no_wifi_module.patch"
       echo -ne "${TEXT_RESET}"
       #patch $PATCH_ARGS < ${MY_PATCHES}/no_wifi_module.patch
       if [ $(ls -1 device/samsung/BoardConfigCommon.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
@@ -191,17 +193,55 @@ function apply_highsense_patches()
 	 PATCH_SUCCESS=1
       fi
    popd
+   
+
+   pushd packages/apps/Dialer/
+      echo "$(pwd)"
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Open-source-Google-Dialer.patch"
+      echo -ne "${TEXT_RESET}"
+      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
+      if [ $(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.py.*" -o -name "*.properties.*" -o -name "*.flags.*" 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.py.*" -o -name "*.properties.*" -o -name "*.flags.*")"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Auto-merge-Google-Dialer-translations.patch"
+      echo -ne "${TEXT_RESET}"
+      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
+      if [ $(ls -1 res/values*/strings.xml.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 res/values*/strings.xml.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch"
+      echo -ne "${TEXT_RESET}"
+      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
+      if [ $(ls -1 src/com/android/dialer/CallDetailHeader.java.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 src/com/android/dialer/CallDetailHeader.java.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+   popd
 
    if [ "$PATCH_MODE" == "P" ]; then
-      touch highsense_patched$VANILLA_PATH
+      touch custom_patched$VANILLA_PATH
    else
-      rm -rf highsense_patched$VANILLA_PATH
+      rm -rf custom_patched$VANILLA_PATH
    fi
    popd
    return $PATCH_SUCCESS
 }
 
-export -f apply_highsense_patches
+export -f apply_custom_patches
 
 function clean_up_gerrit()
 {
