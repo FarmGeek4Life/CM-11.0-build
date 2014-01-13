@@ -23,29 +23,29 @@ clean_build_uniques:
 	rm -rf cm-*; \
 	popd
 
-11.0: 11.0_setup unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts clean_build_uniques build upload unpatch_highsense
+11.0: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques build upload unpatch_custom
 
-autosync: 11.0_setup unpatch_highsense clean_gerrit sync_clean patch_gerrit patch_highsense ensure_prebuilts
+autosync: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts
 
-nosync: unpatch_highsense clean_gerrit patch_gerrit patch_highsense ensure_prebuilts build unpatch_highsense
+nosync: unpatch_custom clean_gerrit patch_gerrit patch_custom ensure_prebuilts build unpatch_custom
 
-build_all: 11.0_setup patch_highsense ensure_prebuilts build upload unpatch_highsense
+build_all: 11.0_setup patch_custom ensure_prebuilts build upload unpatch_custom
 
-base: setup unpatch_highsense clean_gerrit sync_clean ensure_prebuilts build upload
+base: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload
 
-vanilla: setup unpatch_highsense clean_gerrit sync_clean patch_highsense_vanilla ensure_prebuilts build upload unpatch_highsense
+vanilla: setup unpatch_custom clean_gerrit sync_clean patch_custom_vanilla ensure_prebuilts build upload unpatch_highsense
 
 ensure_prebuilts:
 	pushd /home/brysoncg/android/system/vendor/cm/; [ ! -f proprietary/Term.apk ] && ./get-prebuilts || true; popd
 
-patch_highsense: setup
-	apply_highsense_patches 11.0 P 0
+patch_custom: setup
+	apply_custom_patches 11.0 P 0
 
-unpatch_highsense: setup
-	apply_highsense_patches 11.0 R 0
+unpatch_custom: setup
+	apply_custom_patches 11.0 R 0
 
-patch_highsense_vanilla: setup
-	apply_highsense_patches 11.0 P 1
+patch_custom_vanilla: setup
+	apply_custom_patches 11.0 P 1
 
 clean_gerrit: setup
 	. ~/android/useful_scripts.bash; clean_up_gerrit 11.0
@@ -67,7 +67,7 @@ upload:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/; popd
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
 
-clean_highsense_errors: setup
+clean_custom_errors: setup
 #	-rm system/packages/apps/Settings/res/xml/display_settings.xml.*
 #	-rm system/packages/apps/Settings/res/values*/*.xml.*
 #	-rm system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.*
@@ -79,6 +79,8 @@ clean_highsense_errors: setup
 	pushd system/packages/apps/Settings; reset_git_dir; popd
 	pushd system/frameworks/opt/hardware; reset_git_dir; popd
 	pushd system/hardware/samsung; reset_git_dir; popd
+	pushd system/device/samsung/jf-common; reset_git_dir; popd
+	pushd system/packages/apps/Dialer; reset_git_dir; popd
 
 shutdown:
 	gnome-session-quit --power-off
