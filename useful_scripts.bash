@@ -97,6 +97,7 @@ function apply_custom_patches()
    fi
    
    pushd $BASE_DIR
+   PATCH="git apply --whitespace=warn" # Can use 'patch', but 'git apply --whitespace=warn' is more powerful
    PATCHES="/home/brysoncg/android/highsense/$VERSION$VANILLA_PATH"
    MY_PATCHES="/home/brysoncg/android/CM-11.0-build/my-patches"
    echo -ne "${TEXT_GREEN}"
@@ -110,7 +111,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Add-preferences-for-high-touch-sensitivity.patch
+      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Add-preferences-for-high-touch-sensitivity.patch
       if [ $(ls -1 res/xml/display_settings.xml.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -128,7 +129,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Auto-copied-translations-for-high-touch-sensitivity.patch
+      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Auto-copied-translations-for-high-touch-sensitivity.patch
       if [ $(ls -1 res/values*/*xml.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -143,7 +144,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Hardware-Add-high-touch-sensitivity-support.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Hardware-Add-high-touch-sensitivity-support.patch
+      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Hardware-Add-high-touch-sensitivity-support.patch
       if [ $(ls -1 src/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -158,7 +159,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Samsung-add-support-for-high-touch-sensitivity.patch
+      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Samsung-add-support-for-high-touch-sensitivity.patch
       if [ $(ls -1 cmhw/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -173,7 +174,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t my_patches/dalvik_fix.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${MY_PATCHES}/dalvik_fix.patch
+      $PATCH $PATCH_ARGS < ${MY_PATCHES}/dalvik_fix.patch
       if [ $(ls -1 device/samsung/jf-common.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -184,7 +185,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t my_patches/no_wifi_module.patch"
       echo -ne "${TEXT_RESET}"
-      #patch $PATCH_ARGS < ${MY_PATCHES}/no_wifi_module.patch
+      #$PATCH $PATCH_ARGS < ${MY_PATCHES}/no_wifi_module.patch
       if [ $(ls -1 device/samsung/BoardConfigCommon.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -200,7 +201,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Open-source-Google-Dialer.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
+      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
       if [ $(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.py.*" -o -name "*.properties.*" -o -name "*.flags.*" 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -211,7 +212,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Auto-merge-Google-Dialer-translations.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
+      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
       if [ $(ls -1 res/values*/strings.xml.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
@@ -222,7 +223,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch"
       echo -ne "${TEXT_RESET}"
-      patch $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
+      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
       if [ $(ls -1 src/com/android/dialer/CallDetailHeader.java.* 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
