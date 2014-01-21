@@ -341,14 +341,14 @@ function apply_gerrit_picks()
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
 
-   python3 /home/brysoncg/android/gerrit_changes.py \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/53969/' `# jf: fix fstab` \
-       || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
-   if [ $GERRIT_SUCCESS -eq 1 ]; then
-      #emacs device/samsung/jf-common/rootdir/etc/fstab.qcom && GERRIT_SUCCESS=$TEMP_SUCCESS
-      cp ~/android/CM-11.0-build/fstab.qcom ~/android/system/device/samsung/jf-common/rootdir/etc/ && GERRIT_SUCCESS=$TEMP_SUCCESS
-   fi
+   #python3 /home/brysoncg/android/gerrit_changes.py \
+   #    `# device/samsung/jf-common` \
+   #    'http://review.cyanogenmod.org/#/c/53969/' `# jf: fix fstab` \
+   #    || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
+   #if [ $GERRIT_SUCCESS -eq 1 ]; then
+   #   #emacs device/samsung/jf-common/rootdir/etc/fstab.qcom && GERRIT_SUCCESS=$TEMP_SUCCESS
+   #   cp ~/android/CM-11.0-build/fstab.qcom ~/android/system/device/samsung/jf-common/rootdir/etc/ && GERRIT_SUCCESS=$TEMP_SUCCESS
+   #fi
    
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
