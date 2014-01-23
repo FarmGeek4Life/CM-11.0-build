@@ -33,7 +33,7 @@ build_all: 11.0_setup patch_custom ensure_prebuilts build upload unpatch_custom
 
 base: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload
 
-vanilla: setup unpatch_custom clean_gerrit sync_clean patch_custom_vanilla ensure_prebuilts build upload unpatch_highsense
+vanilla: setup unpatch_custom clean_gerrit sync_clean patch_custom ensure_prebuilts build upload unpatch_highsense
 
 ensure_prebuilts:
 	pushd /home/brysoncg/android/system/vendor/cm/; [ ! -f proprietary/Term.apk ] && ./get-prebuilts || true; popd
@@ -43,9 +43,6 @@ patch_custom: setup
 
 unpatch_custom: setup
 	apply_custom_patches 11.0 R 0
-
-patch_custom_vanilla: setup
-	apply_custom_patches 11.0 P 1
 
 clean_gerrit: setup
 	. ~/android/useful_scripts.bash; clean_up_gerrit 11.0
@@ -81,6 +78,7 @@ clean_custom_errors: setup
 	pushd system/hardware/samsung; reset_git_dir; popd
 	pushd system/device/samsung/jf-common; reset_git_dir; popd
 	pushd system/packages/apps/Dialer; reset_git_dir; popd
+	pushd system/packages/apps/InCallUI; reset_git_dir; popd
 
 shutdown:
 	gnome-session-quit --power-off
