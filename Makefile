@@ -10,13 +10,16 @@ setup:
 	. useful_scripts.bash
 
 11.0_setup: setup
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt /; \
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
 	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
 	mv *jflteatt* oldBuilds/ ; \
 	popd
+	-pushd /home/brysoncg/android/CM-11.0-build/; \
+	git pull; \
+	popd
 
 clean_build_uniques:
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt /; \
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
 	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
 	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
 	rm -rf cm_jf*; \
