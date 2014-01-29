@@ -439,8 +439,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (1/2)` \
        `# packages/apps/Gallery2` \
        'http://review.cyanogenmod.org/#/c/56902/' `# Storage configuration options (2/2)` \
-       `# android` \
-       'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
        `# vendor/cm` \
        'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
        `# frameworks/base` \
@@ -484,8 +482,6 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
       # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
-      # `# android` \
-      # 'http://review.cyanogenmod.org/#/c/55384/' `# manifest: Trebuchet` \
       # `# vendor/cm` \
       # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
    
