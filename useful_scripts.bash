@@ -249,23 +249,23 @@ function apply_custom_patches()
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t my_patches/no_wifi_module.patch"
-      echo -ne "${TEXT_RESET}"
+      #echo -ne "${TEXT_GREEN}"
+      #echo -e "$PATCH_STAT:\t\t my_patches/no_wifi_module.patch"
+      #echo -ne "${TEXT_RESET}"
       #$PATCH $PATCH_ARGS < ${MY_PATCHES}/no_wifi_module.patch
-      if [ $? -ne 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch failed!!!!"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 device/samsung/BoardConfigCommon.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(ls -1 device/samsung/BoardConfigCommon.mk.*)"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
+      #if [ $? -ne 0 ]; then
+      #   echo -ne "${TEXT_RED}"
+      #   echo "PATCHING ERROR: Patch failed!!!!"
+      #   echo -ne "${TEXT_RESET}"
+      #   PATCH_SUCCESS=1
+      #fi
+      #if [ $(ls -1 device/samsung/BoardConfigCommon.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
+      #   echo -ne "${TEXT_RED}"
+      #   echo "PATCHING ERROR: Patch backup/reject files exist!"
+      #   echo -e "$(ls -1 device/samsung/BoardConfigCommon.mk.*)"
+      #   echo -ne "${TEXT_RESET}"
+      #   PATCH_SUCCESS=1
+      #fi
    popd
    
 
@@ -305,23 +305,23 @@ function apply_custom_patches()
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch"
-      echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
-      if [ $? -ne 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch failed!!!!"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 src/com/android/dialer/CallDetailHeader.java.* 2>/dev/null | wc -l) -gt 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(ls -1 src/com/android/dialer/CallDetailHeader.java.*)"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
+      #echo -ne "${TEXT_GREEN}"
+      #echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch"
+      #echo -ne "${TEXT_RESET}"
+      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
+      #if [ $? -ne 0 ]; then
+	# echo -ne "${TEXT_RED}"
+	# echo "PATCHING ERROR: Patch failed!!!!"
+	# echo -ne "${TEXT_RESET}"
+	# PATCH_SUCCESS=1
+      #fi
+      #if [ $(ls -1 src/com/android/dialer/CallDetailHeader.java.* 2>/dev/null | wc -l) -gt 0 ]; then
+      #   echo -ne "${TEXT_RED}"
+	# echo "PATCHING ERROR: Patch backup/reject files exist!"
+	# echo -e "$(ls -1 src/com/android/dialer/CallDetailHeader.java.*)"
+	# echo -ne "${TEXT_RESET}"
+	# PATCH_SUCCESS=1
+      #fi
    popd
 
    pushd packages/apps/InCallUI/
