@@ -230,25 +230,7 @@ function apply_custom_patches()
       fi
    popd
 
-   pushd device/samsung/jf-common
-      echo "$(pwd)"
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t my_patches/dalvik_fix.patch"
-      echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${MY_PATCHES}/dalvik_fix.patch
-      if [ $? -ne 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch failed!!!!"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 device/samsung/jf-common.mk.* 2>/dev/null | wc -l) -gt 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(ls -1 device/samsung/jf-common.mk.*)"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
+   #pushd device/samsung/jf-common
       #echo -ne "${TEXT_GREEN}"
       #echo -e "$PATCH_STAT:\t\t my_patches/no_wifi_module.patch"
       #echo -ne "${TEXT_RESET}"
@@ -266,7 +248,7 @@ function apply_custom_patches()
       #   echo -ne "${TEXT_RESET}"
       #   PATCH_SUCCESS=1
       #fi
-   popd
+   #popd
    
 
    pushd packages/apps/Dialer/
