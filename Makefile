@@ -17,6 +17,9 @@ setup:
 	-pushd /home/brysoncg/android/CM-11.0-build/; \
 	git pull; \
 	popd
+	-pushd /home/brysoncg/android/xiaolong_chen/hudson/; \
+	git pull; \
+	popd
 
 clean_build_uniques:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
