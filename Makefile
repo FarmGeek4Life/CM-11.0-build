@@ -45,10 +45,11 @@ ensure_prebuilts:
 	pushd /home/brysoncg/android/system/vendor/cm/; [ ! -f proprietary/Term.apk ] && ./get-prebuilts || true; popd
 
 patch_custom: setup
-	apply_custom_patches 11.0 P 0
+	. ~/android/useful_scripts.bash; apply_custom_patches 11.0 P 0
 
 unpatch_custom: setup
-	apply_custom_patches 11.0 R 0
+	-. ~/android/useful_scripts.bash; apply_custom_patches 11.0 R 0
+	-. ~/android/useful_scripts.bash; clean_custom_patches 11.0
 
 clean_gerrit: setup
 	. ~/android/useful_scripts.bash; clean_up_gerrit 11.0
