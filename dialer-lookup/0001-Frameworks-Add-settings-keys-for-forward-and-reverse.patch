@@ -1,0 +1,52 @@
+From 8152df2086b215843d6b5bf32cbf6d13dd3e09d6 Mon Sep 17 00:00:00 2001
+From: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
+Date: Fri, 31 Jan 2014 11:43:10 -0500
+Subject: [PATCH] Frameworks: Add settings keys for forward and reverse phone
+ number lookup
+
+---
+ core/java/android/provider/Settings.java | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/core/java/android/provider/Settings.java b/core/java/android/provider/Settings.java
+index 8b0e1e5..6ef0373 100644
+--- a/core/java/android/provider/Settings.java
++++ b/core/java/android/provider/Settings.java
+@@ -2764,6 +2764,34 @@ public final class Settings {
+         public static final String QUICK_SETTINGS_TILES = "quick_settings_tiles";
+ 
+         /**
++         * Enable looking up of phone numbers of nearby places
++         *
++         * @hide
++         */
++        public static final String ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
++
++        /**
++         * Enable looking up of information of phone numbers not in the contacts
++         *
++         * @hide
++         */
++        public static final String ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
++
++        /**
++         * The forward lookup provider
++         *
++         * @hide
++         */
++        public static final String FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
++
++        /**
++         * The reverse lookup provider
++         *
++         * @hide
++         */
++        public static final String REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
++
++        /**
+          * Quick Settings Panel Dynamic Tiles
+          *
+          * @hide
+-- 
+1.8.5.3
+

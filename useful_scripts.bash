@@ -67,6 +67,7 @@ function clean_custom_patches()
        'packages/apps/Dialer'
        'packages/apps/InCallUI'
        'packages/services/Telephony'
+       'frameworks/base'
        )
    
    for i in ${AFFECTED_PATHS[@]}; do
@@ -124,7 +125,7 @@ function apply_custom_patches()
 	 MODE="REVERTED"
       fi
       echo -ne "${TEXT_GREEN}"
-      echo "PATCH ALREADY $MODE: High Sensitivity / Glove Mode"
+      echo "PATCH ALREADY $MODE: Custom Patches"
       echo -ne "${TEXT_RESET}"
       return 0;
    else
@@ -142,7 +143,7 @@ function apply_custom_patches()
    echo "Using patch file directory: ${PATCHES}"
    echo -ne "${TEXT_RESET}"
    HIGHTOUCHSENSITIVITY=${PATCHES}/high-touch-sensitivity
-   GOOGLEDIALER=/home/brysoncg/android/xiaolong_chen/hudson/roms/cm-11.0/google-dialer
+   DIALERLOOKUP=${PATCHES}/dialer-lookup
    
    pushd packages/apps/Settings/
       echo "$(pwd)"
@@ -255,78 +256,106 @@ function apply_custom_patches()
    pushd packages/apps/Dialer/
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Open-source-Google-Dialer.patch"
+      echo -e "$PATCH_STAT:\t\t DialerLookup/0001-Dialer-Add-support-for-forward-and-reverse-lookups.patch"
       echo -ne "${TEXT_RESET}"
-      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
+      $PATCH $PATCH_ARGS < ${DIALERLOOKUP}/0001-Dialer-Add-support-for-forward-and-reverse-lookups.patch
       if [ $? -ne 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch failed!!!!"
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
-      if [ $(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.py.*" -o -name "*.properties.*" -o -name "*.flags.*" 2>/dev/null | wc -l) -gt 0 ]; then
+      if [ $(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.properties.*" -o -name "*.flags.*" 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.py.*" -o -name "*.properties.*" -o -name "*.flags.*")"
+	 echo -e "$(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.png.*" -o -name "*.mk.*" -o -name "*.properties.*" -o -name "*.flags.*")"
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Auto-merge-Google-Dialer-translations.patch"
-      echo -ne "${TEXT_RESET}"
-      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
-      if [ $? -ne 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch failed!!!!"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 res/values*/strings.xml.* 2>/dev/null | wc -l) -gt 0 ]; then
-	 echo -ne "${TEXT_RED}"
-	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(ls -1 res/values*/strings.xml.*)"
-	 echo -ne "${TEXT_RESET}"
-	 PATCH_SUCCESS=1
-      fi
-      #echo -ne "${TEXT_GREEN}"
-      #echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch"
-      #echo -ne "${TEXT_RESET}"
-      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Re-add-LoaderCallbacks-to-CyanogenMod-dialer.patch
-      #if [ $? -ne 0 ]; then
-	# echo -ne "${TEXT_RED}"
-	# echo "PATCHING ERROR: Patch failed!!!!"
-	# echo -ne "${TEXT_RESET}"
-	# PATCH_SUCCESS=1
-      #fi
-      #if [ $(ls -1 src/com/android/dialer/CallDetailHeader.java.* 2>/dev/null | wc -l) -gt 0 ]; then
-      #   echo -ne "${TEXT_RED}"
-	# echo "PATCHING ERROR: Patch backup/reject files exist!"
-	# echo -e "$(ls -1 src/com/android/dialer/CallDetailHeader.java.*)"
-	# echo -ne "${TEXT_RESET}"
-	# PATCH_SUCCESS=1
-      #fi
    popd
 
    pushd packages/apps/InCallUI/
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-InCallUI-Google-Phone-Number-Service.patch"
+      echo -e "$PATCH_STAT:\t\t DialerLookup/0001-InCallUI-Add-phone-number-service.patch"
       echo -ne "${TEXT_RESET}"
-      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-InCallUI-Google-Phone-Number-Service.patch
+      $PATCH $PATCH_ARGS < ${DIALERLOOKUP}/0001-InCallUI-Add-phone-number-service.patch
       if [ $? -ne 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch failed!!!!"
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
-      if [ $(ls -1 src/com/android/incalluibind/ServiceFactory.java.* 2>/dev/null | wc -l) -gt 0 ]; then
+      # src/com/android/incalluibind/ServiceFactory.java.*
+      # src/com/android/incallui/service/PhoneNumberServiceImpl.java
+      if [ $(find src/com/android/incallui*/ -name "*.java.*" 2>/dev/null | wc -l) -gt 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch backup/reject files exist!"
-	 echo -e "$(ls -1 src/com/android/incalluibind/ServiceFactory.java.*)"
+	 echo -e "$(find src/com/android/incallui*/ -name "*.java.*")"
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
    popd
+
+   pushd packages/services/Telephony
+      echo "$(pwd)"
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t DialerLookup/0001-Telephony-Add-settings-for-forward-and-reverse-numbe.patch"
+      echo -ne "${TEXT_RESET}"
+      $PATCH $PATCH_ARGS < ${DIALERLOOKUP}/0001-Telephony-Add-settings-for-forward-and-reverse-numbe.patch
+      if [ $? -ne 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch failed!!!!"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      if [ $(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.mk.*" 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(find ./ -name "*.java.*" -o -name "*.xml.*" -o -name "*.mk.*")"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+   popd
+
+   pushd frameworks/base
+      echo "$(pwd)"
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t DialerLookup/0001-AccountManagerService-Allow-com.android.dialer-to-ac.patch"
+      echo -ne "${TEXT_RESET}"
+      $PATCH $PATCH_ARGS < ${DIALERLOOKUP}/0001-AccountManagerService-Allow-com.android.dialer-to-ac.patch
+      if [ $? -ne 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch failed!!!!"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      if [ $(ls -1 services/java/com/android/server/accounts/AccountManagerService.java.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 services/java/com/android/server/accounts/AccountManagerService.java.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t DialerLookup/0001-Frameworks-Add-settings-keys-for-forward-and-reverse.patch"
+      echo -ne "${TEXT_RESET}"
+      $PATCH $PATCH_ARGS < ${DIALERLOOKUP}/0001-Frameworks-Add-settings-keys-for-forward-and-reverse.patch
+      if [ $? -ne 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch failed!!!!"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      if [ $(ls -1 core/java/android/provider/Settings.java.* 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(ls -1 core/java/android/provider/Settings.java.*)"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+   popd
+
 
    if [ "$PATCH_MODE" == "P" ]; then
       touch custom_patched
@@ -364,6 +393,9 @@ function clean_up_gerrit()
        'packages/apps/InCallUI'
        'packages/services/Telephony'
        )
+   #    'packages/apps/Dialer'
+   #    'packages/apps/InCallUI'
+   #    'packages/services/Telephony'
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
 
@@ -412,8 +444,6 @@ function apply_gerrit_picks()
    
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
-       `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# external/koush/Superuser` \
@@ -424,31 +454,6 @@ function apply_gerrit_picks()
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
 
-   python3 /home/brysoncg/android/gerrit_changes.py \
-       `# packages/apps/Dialer` \
-       'http://gerrit.cxl.epac.to/#/c/1/' `# Dialer: Support for forward/reverse lookups` \
-       `# packages/apps/InCallUI` \
-       'http://gerrit.cxl.epac.to/#/c/2/' `# InCallUI: Add phone number service` \
-       `# packages/services/Telephony` \
-       'http://gerrit.cxl.epac.to/#/c/3/' `# Telephony: Add setting for forward/reverse lookup` \
-       `# frameworks/base` \
-       'http://gerrit.cxl.epac.to/#/c/4/' `# Frameworks: Add settings key for forward/reverse lookups` \
-       `# frameworks/base` \
-       'http://gerrit.cxl.epac.to/#/c/5/' `# AccountManagerService: Allow com.android.dialer to access account data` \
-       `# packages/services/Telephony` \
-       'http://gerrit.cxl.epac.to/#/c/6/' `# Use PackageManager to detect Google Play Services install` \
-       `# packages/services/Telephony` \
-       'http://gerrit.cxl.epac.to/#/c/7/' `# Telephony: Fix reverse lookup gms logic detection` \
-       `# packages/apps/Dialer` \
-       'http://gerrit.cxl.epac.to/#/c/8/' `# Dialer: Use PackageManager to detect Google Play Services install` \
-       `# packages/apps/Dialer` \
-       'http://gerrit.cxl.epac.to/#/c/9/' `# [2/2] Dialer: Add WhitePages Canada reverse lookup provider` \
-       `# packages/services/Telephony` \
-       'http://gerrit.cxl.epac.to/#/c/10/' `# [1/2] Telephony: Add setting for WhitePages Canada reverse lookup` \
-       `# packages/apps/Dialer` \
-       'http://gerrit.cxl.epac.to/#/c/11/' `# Nitpicks` \
-       || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
-   
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
       # DO NOT USE ABOVE WITH NEW KERNEL PATCHES: particularly 56214: jf: Remove the GPS header
@@ -471,6 +476,32 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
       # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
+   # Didn't work - he has his directories named differently...
+   # Gerrit pulls from Xiao-Long Chen's gerrit...
+   #python3 /home/brysoncg/android/gerrit_changes.py \
+   #    `# packages/apps/Dialer` \
+   #    'http://gerrit.cxl.epac.to/#/c/1/' `# Dialer: Support for forward/reverse lookups` \
+   #    `# packages/apps/InCallUI` \
+   #    'http://gerrit.cxl.epac.to/#/c/2/' `# InCallUI: Add phone number service` \
+   #    `# packages/services/Telephony` \
+   #    'http://gerrit.cxl.epac.to/#/c/3/' `# Telephony: Add setting for forward/reverse lookup` \
+   #    `# frameworks/base` \
+   #    'http://gerrit.cxl.epac.to/#/c/4/' `# Frameworks: Add settings key for forward/reverse lookups` \
+   #    `# frameworks/base` \
+   #    'http://gerrit.cxl.epac.to/#/c/5/' `# AccountManagerService: Allow com.android.dialer to access account data` \
+   #    `# packages/services/Telephony` \
+   #    'http://gerrit.cxl.epac.to/#/c/6/' `# Use PackageManager to detect Google Play Services install` \
+   #    `# packages/services/Telephony` \
+   #    'http://gerrit.cxl.epac.to/#/c/7/' `# Telephony: Fix reverse lookup gms logic detection` \
+   #    `# packages/apps/Dialer` \
+   #    'http://gerrit.cxl.epac.to/#/c/8/' `# Dialer: Use PackageManager to detect Google Play Services install` \
+   #    `# packages/apps/Dialer` \
+   #    'http://gerrit.cxl.epac.to/#/c/9/' `# [2/2] Dialer: Add WhitePages Canada reverse lookup provider` \
+   #    `# packages/services/Telephony` \
+   #    'http://gerrit.cxl.epac.to/#/c/10/' `# [1/2] Telephony: Add setting for WhitePages Canada reverse lookup` \
+   #    `# packages/apps/Dialer` \
+   #    'http://gerrit.cxl.epac.to/#/c/11/' `# Nitpicks` \
+   #    || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
