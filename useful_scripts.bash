@@ -66,6 +66,7 @@ function clean_custom_patches()
        'device/samsung/jf-common'
        'packages/apps/Dialer'
        'packages/apps/InCallUI'
+       'packages/services/Telephony'
        )
    
    for i in ${AFFECTED_PATHS[@]}; do
@@ -256,7 +257,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Open-source-Google-Dialer.patch"
       echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
+      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Open-source-Google-Dialer.patch
       if [ $? -ne 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch failed!!!!"
@@ -273,7 +274,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-Auto-merge-Google-Dialer-translations.patch"
       echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
+      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-Auto-merge-Google-Dialer-translations.patch
       if [ $? -ne 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch failed!!!!"
@@ -311,7 +312,7 @@ function apply_custom_patches()
       echo -ne "${TEXT_GREEN}"
       echo -e "$PATCH_STAT:\t\t GoogleDialer/0001-InCallUI-Google-Phone-Number-Service.patch"
       echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-InCallUI-Google-Phone-Number-Service.patch
+      #$PATCH $PATCH_ARGS < ${GOOGLEDIALER}/0001-InCallUI-Google-Phone-Number-Service.patch
       if [ $? -ne 0 ]; then
 	 echo -ne "${TEXT_RED}"
 	 echo "PATCHING ERROR: Patch failed!!!!"
@@ -357,15 +358,11 @@ function clean_up_gerrit()
    
    AFFECTED_PATHS=(
        'device/samsung/jf-common'
-       'device/samsung/msm8960-common'
        'frameworks/base'
-       'android'
-       'system/core'
        'external/koush/Superuser'
-       'vendor/cm'
-       'packages/apps/Settings'
-       'packages/apps/Camera2'
-       'packages/apps/Gallery2'
+       'packages/apps/Dialer'
+       'packages/apps/InCallUI'
+       'packages/services/Telephony'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -417,30 +414,40 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# device/samsung/jf-common` \
        'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-       `# packages/apps/Camera2` \
-       'http://review.cyanogenmod.org/#/c/56880/' `# Storage configuration options (1/2)` \
-       `# packages/apps/Gallery2` \
-       'http://review.cyanogenmod.org/#/c/56902/' `# Storage configuration options (2/2)` \
-       `# vendor/cm` \
-       'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
        `# frameworks/base` \
        'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
-       `# system/core` \
-       'http://review.cyanogenmod.org/#/c/54968/' `# adb: use bash as default shell for adb shell` \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
+   # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
+   
    TEMP_SUCCESS=$GERRIT_SUCCESS
 
-   #python3 /home/brysoncg/android/gerrit_changes.py \
-   #    `# device/samsung/jf-common` \
-   #    'http://review.cyanogenmod.org/#/c/53969/' `# jf: fix fstab` \
-   #    || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
-   #if [ $GERRIT_SUCCESS -eq 1 ]; then
-   #   #emacs device/samsung/jf-common/rootdir/etc/fstab.qcom && GERRIT_SUCCESS=$TEMP_SUCCESS
-   #   cp ~/android/CM-11.0-build/fstab.qcom ~/android/system/device/samsung/jf-common/rootdir/etc/ && GERRIT_SUCCESS=$TEMP_SUCCESS
-   #fi
+   python3 /home/brysoncg/android/gerrit_changes.py \
+       `# packages/apps/Dialer` \
+       'http://gerrit.cxl.epac.to/#/c/1/' `# Dialer: Support for forward/reverse lookups` \
+       `# packages/apps/InCallUI` \
+       'http://gerrit.cxl.epac.to/#/c/2/' `# InCallUI: Add phone number service` \
+       `# packages/services/Telephony` \
+       'http://gerrit.cxl.epac.to/#/c/3/' `# Telephony: Add setting for forward/reverse lookup` \
+       `# frameworks/base` \
+       'http://gerrit.cxl.epac.to/#/c/4/' `# Frameworks: Add settings key for forward/reverse lookups` \
+       `# frameworks/base` \
+       'http://gerrit.cxl.epac.to/#/c/5/' `# AccountManagerService: Allow com.android.dialer to access account data` \
+       `# packages/services/Telephony` \
+       'http://gerrit.cxl.epac.to/#/c/6/' `# Use PackageManager to detect Google Play Services install` \
+       `# packages/services/Telephony` \
+       'http://gerrit.cxl.epac.to/#/c/7/' `# Telephony: Fix reverse lookup gms logic detection` \
+       `# packages/apps/Dialer` \
+       'http://gerrit.cxl.epac.to/#/c/8/' `# Dialer: Use PackageManager to detect Google Play Services install` \
+       `# packages/apps/Dialer` \
+       'http://gerrit.cxl.epac.to/#/c/9/' `# [2/2] Dialer: Add WhitePages Canada reverse lookup provider` \
+       `# packages/services/Telephony` \
+       'http://gerrit.cxl.epac.to/#/c/10/' `# [1/2] Telephony: Add setting for WhitePages Canada reverse lookup` \
+       `# packages/apps/Dialer` \
+       'http://gerrit.cxl.epac.to/#/c/11/' `# Nitpicks` \
+       || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
@@ -464,8 +471,6 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
       # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
       # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
-      # `# vendor/cm` \
-      # 'http://review.cyanogenmod.org/#/c/55718/' `# cm: Add Trebuchet back to the build` \
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1
