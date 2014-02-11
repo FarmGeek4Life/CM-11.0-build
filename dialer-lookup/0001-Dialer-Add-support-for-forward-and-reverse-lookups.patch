@@ -4583,7 +4583,7 @@ new file mode 100644
 index 0000000..469e29e
 --- /dev/null
 +++ b/src/com/android/dialer/lookup/whitepages/WhitePagesApi.java
-@@ -0,0 +1,305 @@
+@@ -0,0 +1,304 @@
 +/*
 + * Copyright (C) 2014 Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 + *

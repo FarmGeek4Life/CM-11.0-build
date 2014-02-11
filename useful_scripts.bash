@@ -389,9 +389,6 @@ function clean_up_gerrit()
        'device/samsung/jf-common'
        'frameworks/base'
        'external/koush/Superuser'
-       'packages/apps/Dialer'
-       'packages/apps/InCallUI'
-       'packages/services/Telephony'
        )
    #    'packages/apps/Dialer'
    #    'packages/apps/InCallUI'
