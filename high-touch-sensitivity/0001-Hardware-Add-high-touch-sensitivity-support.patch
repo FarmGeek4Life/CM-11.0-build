@@ -14,9 +14,9 @@ new file mode 100644
 index 0000000..1c1589e
 --- /dev/null
 +++ b/src/org/cyanogenmod/hardware/HighTouchSensitivity.java
-@@ -0,0 +1,40 @@
+@@ -0,1 +1,40 @@
 +/*
-+ * Copyright (C) 2013 The CyanogenMod Project
++ * Copyright (C) 2013 Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 + *
 + * Licensed under the Apache License, Version 2.0 (the "License");
 + * you may not use this file except in compliance with the License.
