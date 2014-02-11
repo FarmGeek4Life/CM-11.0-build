@@ -14,7 +14,7 @@ new file mode 100644
 index 0000000..62a40ef
 --- /dev/null
 +++ b/cmhw/org/cyanogenmod/hardware/HighTouchSensitivity.java
-@@ -0,1 +1,119 @@
+@@ -0,0 +1,119 @@
 +/*
 + * Copyright (C) 2013 Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 + *
