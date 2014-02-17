@@ -20,7 +20,7 @@ setup:
 	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
 	mv *jflte* oldBuilds/ ; \
 	popd
-	cp manifest_jflte.xml roomservice.xml
+#	cp manifest_jflte.xml roomservice.xml
 
 clean_build_uniques:
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; \
