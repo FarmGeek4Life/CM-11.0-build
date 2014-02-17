@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 all_auto: all shutdown
 
-all: jflteatt 11.0
+all: 11.0
 
 setup:
 	. useful_scripts.bash
@@ -15,7 +15,7 @@ setup:
 	git pull; \
 	popd
 
-11.0_setup_jflte: setup
+11.0_setup: setup
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; \
 	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
 	mv *jflteatt* oldBuilds/ ; \
@@ -29,7 +29,7 @@ setup:
 	popd
 	cp manifest_jflteatt.xml roomservice.xml
 
-clean_build_uniques_jflte:
+clean_build_uniques:
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; \
 	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
 	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
@@ -45,7 +45,7 @@ clean_build_uniques_jflteatt:
 	rm -rf cm-*; \
 	popd
 
-11.0: 11.0_setup_jflte unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques_jflte build_jflte upload_jflte unpatch_custom
+11.0: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques build upload unpatch_custom
 
 jflteatt: 11.0_setup_jflteatt unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques_jflteatt build_jflteatt upload_jflteatt unpatch_custom
 
@@ -81,7 +81,7 @@ sync:
 sync_clean:
 	pushd system; (repo sync -d -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
-build_jflte:
+build:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
 	pushd system; source build/envsetup.sh; (brunch jflte && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
@@ -89,7 +89,7 @@ build_jflteatt:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
 	pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
-upload_jflte:
+upload:
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; rm -rf oldBuilds; popd
 
