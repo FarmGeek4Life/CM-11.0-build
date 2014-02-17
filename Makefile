@@ -4,16 +4,10 @@ SHELL := /bin/bash
 
 all_auto: all shutdown
 
-all: 11.0
+all: jflteatt 11.0
 
 setup:
 	. useful_scripts.bash
-
-11.0_setup: setup
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
-	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
-	mv *jflteatt* oldBuilds/ ; \
-	popd
 	-pushd /home/brysoncg/android/CM-11.0-build/; \
 	git pull; \
 	popd
@@ -21,7 +15,29 @@ setup:
 	git pull; \
 	popd
 
-clean_build_uniques:
+11.0_setup_jflte: setup
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/; \
+	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
+	mv *jflteatt* oldBuilds/ ; \
+	popd
+	cp manifest_jflte.xml roomservice.xml
+
+11.0_setup_jflteatt: setup
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
+	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
+	mv *jflteatt* oldBuilds/ ; \
+	popd
+	cp manifest_jflteatt.xml roomservice.xml
+
+clean_build_uniques_jflte:
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/; \
+	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
+	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
+	rm -rf cm_jf*; \
+	rm -rf cm-*; \
+	popd
+
+clean_build_uniques_jflteatt:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
 	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
 	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
@@ -29,13 +45,15 @@ clean_build_uniques:
 	rm -rf cm-*; \
 	popd
 
-11.0: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques build upload unpatch_custom
+11.0: 11.0_setup_jflte unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques_jflte build_jflte upload_jflte unpatch_custom
+
+jflteatt: 11.0_setup_jflteatt unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts clean_build_uniques_jflteatt build_jflteatt upload_jflteatt unpatch_custom
 
 autosync: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom ensure_prebuilts
 
 nosync: unpatch_custom clean_gerrit patch_gerrit patch_custom ensure_prebuilts build unpatch_custom
 
-build_all: 11.0_setup patch_custom ensure_prebuilts build upload unpatch_custom
+build_all: 11.0_setup patch_custom ensure_prebuilts build_jflte upload unpatch_custom
 
 base: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload
 
@@ -63,11 +81,19 @@ sync:
 sync_clean:
 	pushd system; (repo sync -d -j500 && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
-build:
+build_jflte:
+#	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
+	pushd system; source build/envsetup.sh; (brunch jflte && STATUS=0) || STATUS=1; popd; exit $$STATUS
+
+build_jflteatt:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
 	pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
-upload:
+upload_jflte:
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/; rm -rf oldBuilds; popd
+
+upload_jflteatt:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
 
