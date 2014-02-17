@@ -354,6 +354,23 @@ function apply_custom_patches()
 	 echo -ne "${TEXT_RESET}"
 	 PATCH_SUCCESS=1
       fi
+      echo -ne "${TEXT_GREEN}"
+      echo -e "$PATCH_STAT:\t\t MultiWindow Patch"
+      echo -ne "${TEXT_RESET}"
+      $PATCH $PATCH_ARGS < ${MY_PATCHES}/multiwindow.patch # Multi-window ported from omnirom
+      if [ $? -ne 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch failed!!!!"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
+      if [ $(find ./ -name "*.java.*" -o -name "*.xml.rej" -o -name "*.xml.orig" -o -name "*.aidl.*" 2>/dev/null | wc -l) -gt 0 ]; then
+	 echo -ne "${TEXT_RED}"
+	 echo "PATCHING ERROR: Patch backup/reject files exist!"
+	 echo -e "$(find ./ -name "*.java.*" -o -name "*.xml.rej" -o -name "*.xml.orig" -o -name "*.aidl.*")"
+	 echo -ne "${TEXT_RESET}"
+	 PATCH_SUCCESS=1
+      fi
    popd
 
 
@@ -387,7 +404,6 @@ function clean_up_gerrit()
    
    AFFECTED_PATHS=(
        'device/samsung/jf-common'
-       'frameworks/base'
        'external/koush/Superuser'
        )
    #    'packages/apps/Dialer'
@@ -441,8 +457,6 @@ function apply_gerrit_picks()
    
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/56080/' `# Multi-window ported from omnirom` \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
