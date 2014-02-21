@@ -459,6 +459,10 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/59909/' `# [1/2] Speed up boot dex opt on multicore devices.` \
+       `# frameworks/native` \
+       'http://review.cyanogenmod.org/#/c/59908/' `# [2/2] Speed up boot dex opt on multicore devices.` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
