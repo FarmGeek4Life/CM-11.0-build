@@ -87,9 +87,9 @@ diff --git a/AndroidManifest.xml b/AndroidManifest.xml
 index e011d80..5e33587 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
-@@ -52,6 +52,11 @@
-      presses home. -->
-     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
+@@ -54,6 +54,11 @@
+     <uses-permission android:name="android.permission.CAMERA" />
+     <uses-permission android:name="com.qti.permission.DIAG" />
  
 +    <!-- Allow the Dialer to access accounts for lookup services -->
 +    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
@@ -99,7 +99,7 @@ index e011d80..5e33587 100644
      <application
          android:name="DialerApplication"
          android:label="@string/applicationLabel"
-@@ -305,5 +310,15 @@
+@@ -340,5 +345,15 @@
              </intent-filter>
          </receiver>
  
@@ -267,9 +267,9 @@ index 55cdea4..d4fbfbf 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
 @@ -635,4 +635,7 @@
- 
-     <!-- Content description for dismiss button on badge. [CHAR LIMIT=NONE] -->
-     <string name="description_dismiss">Dismiss</string>
+     <string name="calllog_search_hint">"Search call log"</string>
+     <string name="dial_conference">Dial conference</string>
+     <string name="to_hint">1111:to;sip:abby@example.com:bcc;sip:bill@example.com:cc;</string>
 +
 +    <!-- Forward lookup -->
 +    <string name="nearby_places">Nearby places</string>
