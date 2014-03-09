@@ -404,6 +404,10 @@ function clean_up_gerrit()
    
    AFFECTED_PATHS=(
        'external/koush/Superuser'
+       'device/samsung/jflte'
+       'device/samsung/qcom-common'
+       'device/samsung/msm8960-common'
+       'frameworks/base'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -455,11 +459,37 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/60748/' `# PackageManager: Fix reconnection logic in Installer.` \
+       `# device/samsung/jflte` \
+       'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
+       `# device/samsung/qcom-common` \
+       'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
+       `# device/samsung/jflte` \
+       'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
+       `# device/samsung/msm8960-common` \
+       'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
+       `# device/samsung/jflte` \
+       'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
+      
+      # `# frameworks/base` \
+      # 'http://review.cyanogenmod.org/#/c/60748/' `# PackageManager: Fix reconnection logic in Installer.` \
+      ############# use https://github.com/dcd11/proprietary_vendor_samsung.git branch gps
+      # `# device/samsung/jflte` \
+      # 'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
+      # `# device/samsung/qcom-common` \
+      # 'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
+      # `# device/samsung/jflte` \
+      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
+      # `# device/samsung/msm8960-common` \
+      # 'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
+      # `# device/samsung/jflte` \
+      # 'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
 
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
