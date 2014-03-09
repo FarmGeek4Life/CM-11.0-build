@@ -52,10 +52,10 @@ diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
 index 10c96f6..641ae8d 100644
 --- a/res/values/cm_strings.xml
 +++ b/res/values/cm_strings.xml
-@@ -88,4 +88,14 @@
-     <!-- Noise suppression -->
-     <string name="noise_suppression_title">Noise suppression</string>
-     <string name="noise_suppression_summary">Enable noise suppression for calls</string>
+@@ -113,4 +113,14 @@
+     <string name="preferred_network_mode_wcdma_only">WCDMA only</string>
+     <string name="preferred_network_mode_gsm_only">GSM only</string>
+     <string name="preferred_network_mode_gsm_wcdma_preferred">GSM/WCDMA preferred</string>
 +
 +    <!-- Number lookup -->
 +    <string name="number_lookup">Phone number lookup</string>
