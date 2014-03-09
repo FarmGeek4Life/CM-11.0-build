@@ -465,8 +465,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
        `# device/samsung/qcom-common` \
        'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
-       `# device/samsung/jflte` \
-       'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
        `# device/samsung/msm8960-common` \
        'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
        `# device/samsung/jflte` \
@@ -485,7 +483,7 @@ function apply_gerrit_picks()
       # `# device/samsung/qcom-common` \
       # 'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
       # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
+      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup DO NOT USE WITH 60397!!` \
       # `# device/samsung/msm8960-common` \
       # 'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
       # `# device/samsung/jflte` \
