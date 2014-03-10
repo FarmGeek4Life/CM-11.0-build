@@ -469,6 +469,8 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
        `# device/samsung/jflte` \
        'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
+       `# device/samsung/jflte` \
+       'http://review.cyanogenmod.org/#/c/60904/' `# jflte: improve boot speed` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
@@ -488,6 +490,8 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
       # `# device/samsung/jflte` \
       # 'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
+      # `# device/samsung/jflte` \
+      # 'http://review.cyanogenmod.org/#/c/60904/' `# jflte: improve boot speed` \
 
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
