@@ -471,6 +471,10 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
        `# device/samsung/jflte` \
        'http://review.cyanogenmod.org/#/c/60904/' `# jflte: improve boot speed` \
+       `# device/samsung/jflte` \
+       'http://review.cyanogenmod.org/#/c/60994/' `# jlte: Unbreak network mode options` \
+       `# device/samsung/msm8960-common` \
+       'http://review.cyanogenmod.org/#/c/61001/' `# msm8960-common: GPS hal should actually support MSM8960` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
