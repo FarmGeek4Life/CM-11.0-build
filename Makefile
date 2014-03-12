@@ -72,6 +72,23 @@ upload:
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
 	-pushd /home/brysoncg/android/system/out/target/product/jflte/; rm -rf oldBuilds; popd
 
+adb_push:
+	@read -p "Connect Phone via USB!!!. Press enter to continue: "
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/ ; \
+	adb push cm-11-20*-UNOFFICIAL-jflte.zip /storage/sdcard1/updates/ ; \
+	adb push cm-11-20*-UNOFFICIAL-jflte.zip.md5sum /storage/sdcard1/updates/ ; \
+	popd
+
+adb_push_net:
+	@read -p "Enable ADB Networking!!!. Press enter to continue: "
+	-pushd /home/brysoncg/android/system/out/target/product/jflte/ ; \
+	adb connect 192.168.9.210 ; \
+	sleep 2 ; \
+	adb push cm-11-20*-UNOFFICIAL-jflte.zip /storage/sdcard1/updates/ ; \
+	adb push cm-11-20*-UNOFFICIAL-jflte.zip.md5sum /storage/sdcard1/updates/ ; \
+	adb disconnect ; \
+	popd
+
 clean_custom_errors: setup
 #	-rm system/packages/apps/Settings/res/xml/display_settings.xml.*
 #	-rm system/packages/apps/Settings/res/values*/*.xml.*
