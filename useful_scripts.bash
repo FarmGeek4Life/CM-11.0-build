@@ -459,8 +459,6 @@ function apply_gerrit_picks()
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/60748/' `# PackageManager: Fix reconnection logic in Installer.` \
        `# device/samsung/jflte` \
        'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
        `# device/samsung/qcom-common` \
@@ -481,8 +479,6 @@ function apply_gerrit_picks()
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
       
-      # `# frameworks/base` \
-      # 'http://review.cyanogenmod.org/#/c/60748/' `# PackageManager: Fix reconnection logic in Installer.` \
       ############# use https://github.com/dcd11/proprietary_vendor_samsung.git branch gps
       # `# device/samsung/jflte` \
       # 'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
