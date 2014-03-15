@@ -68,6 +68,7 @@ for line in temp:
 
   repos.append(split)
 
+special_exit_status = 0
 for change in sys.argv[1:]:
   if not change:
     continue
@@ -155,7 +156,8 @@ for change in sys.argv[1:]:
     print("--- STDERR ---")
     print(error)
     print("--- END ---")
-    sys.exit(1)
+    #sys.exit(1)
+    special_exit_status = 1;
 
   exit_status, output, error = run_command(
     [ 'git', 'merge', '--no-edit', 'FETCH_HEAD' ],
@@ -167,6 +169,10 @@ for change in sys.argv[1:]:
     print("--- STDERR ---")
     print(error)
     print("--- END ---")
-    sys.exit(1)
+    #sys.exit(1)
+    special_exit_status = 1;
 
 print("=" * 80)
+
+if special_exit_status != 0:
+    sys.exit(special_exit_status)
