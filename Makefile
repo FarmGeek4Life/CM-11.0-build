@@ -36,7 +36,7 @@ autosync: 11.0_setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_c
 
 nosync: unpatch_custom clean_gerrit patch_gerrit patch_custom ensure_prebuilts build unpatch_custom
 
-build_all: 11.0_setup patch_custom ensure_prebuilts build_jflte upload unpatch_custom
+build_all: 11.0_setup patch_custom ensure_prebuilts build upload unpatch_custom
 
 base: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload
 
