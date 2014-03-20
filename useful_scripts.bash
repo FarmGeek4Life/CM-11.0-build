@@ -407,10 +407,6 @@ function clean_up_gerrit()
        'device/samsung/jflte'
        'device/samsung/qcom-common'
        'device/samsung/msm8960-common'
-       'frameworks/base'
-       'packages/services/Telephony'
-       'packages/apps/InCallUI'
-       'packages/apps/Dialer'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -470,16 +466,6 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
        `# device/samsung/jflte` \
        'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
-       `# device/samsung/jflte` \
-       'http://review.cyanogenmod.org/#/c/60904/' `# jflte: improve boot speed` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/61115/' `# [1/4] Dialer lookup` \
-       `# packages/services/Telephony` \
-       'http://review.cyanogenmod.org/#/c/61116/' `# [2/4] Dialer lookup` \
-       `# packages/apps/InCallUI` \
-       'http://review.cyanogenmod.org/#/c/61117/' `# [3/4] Dialer lookup` \
-       `# packages/apps/Dialer` \
-       'http://review.cyanogenmod.org/#/c/61118/' `# [4/4] Dialer lookup` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
@@ -497,8 +483,6 @@ function apply_gerrit_picks()
       # 'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
       # `# device/samsung/jflte` \
       # 'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60904/' `# jflte: improve boot speed` \
       # `# device/samsung/msm8960-common` \ ###### This already has everything needed for the Galaxy S4
       # 'http://review.cyanogenmod.org/#/c/61001/' `# msm8960-common: GPS hal should actually support MSM8960` \
 
