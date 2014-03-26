@@ -459,32 +459,17 @@ function apply_gerrit_picks()
        `# external/koush/Superuser` \
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
        `# device/samsung/jflte` \
-       'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
-       `# device/samsung/qcom-common` \
-       'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
-       `# device/samsung/msm8960-common` \
-       'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
+       'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
        `# device/samsung/jflte` \
-       'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
+       'http://review.cyanogenmod.org/#/c/61607/' `# jflte: kk gps hal` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
       
-      ############# use https://github.com/dcd11/proprietary_vendor_samsung.git branch gps
       # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60397/' `# jflte: init updates from NB8` \
-      # `# device/samsung/qcom-common` \
-      # 'http://review.cyanogenmod.org/#/c/60398/' `# samsung_qcom-common: updates from NB8` \
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup DO NOT USE WITH 60397!!` \
-      # `# device/samsung/msm8960-common` \
-      # 'http://review.cyanogenmod.org/#/c/60730/' `# samsung-msm8960: kk gps hal` \
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60733/' `# jf: remove gps hal` \
-      # `# device/samsung/msm8960-common` \ ###### This already has everything needed for the Galaxy S4
-      # 'http://review.cyanogenmod.org/#/c/61001/' `# msm8960-common: GPS hal should actually support MSM8960` \
+      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
 
       # `# device/samsung/jf-common` \
       # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
