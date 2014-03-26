@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <project name="CyanogenMod/android_device_samsung_jflteatt" path="device/samsung/jflteatt" remote="github" />
   <project name="CyanogenMod/android_device_samsung_qcom-common" path="device/samsung/qcom-common" remote="github" />
   <project name="CyanogenMod/android_device_samsung_msm8960-common" path="device/samsung/msm8960-common" remote="github" />
-  <project name="CyanogenMod/android_device_samsung_jf-common" path="device/samsung/jf-common" remote="github" />
-  <!-- <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" /> -->
+  <project name="CyanogenMod/android_device_samsung_jflte" path="device/samsung/jflte" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" />
   <!-- <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" revision="refs/heads/wip-ml4" /> -->
-  <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" revision="refs/heads/next" />
+  <!-- <project name="CyanogenMod/android_kernel_samsung_jf" path="kernel/samsung/jf" remote="github" revision="refs/heads/next" /> -->
   <project name="CyanogenMod/android_hardware_samsung" path="hardware/samsung" remote="github" />
-  <project name="CyanogenMod/android_packages_apps_Trebuchet" path="packages/apps/Trebuchet" remote="github" />
-  <!-- <project name="invisiblek/proprietary_vendor_samsung" path="vendor_blobs/samsung" remote="github" revision="refs/heads/cm-11.0"/> -->
+  <!-- <project name="CyanogenMod/android_packages_apps_Trebuchet" path="packages/apps/Trebuchet" remote="github" /> -->
+  <!-- <project name="invisiblek/proprietary_vendor_samsung" path="vendor/samsung" remote="github" revision="refs/heads/cm-11.0"/> -->
   <!-- https://github.com/invisiblek/proprietary_vendor_samsung/tree/cm-11.0/jf-common -->
-  <!-- <project name="TheMuppets/proprietary_vendor_samsung" path="vendor_blobs/samsung" remote="github" revision="refs/heads/cm-11.0"/> -->
-  <project name="TheMuppets/proprietary_vendor_samsung" path="vendor_blobs/samsung" remote="github" revision="refs/heads/jf-next"/>
+  <!-- <project name="TheMuppets/proprietary_vendor_samsung" path="vendor/samsung" remote="github" revision="refs/heads/cm-11.0" /> -->
+  <project name="invisiblek/proprietary_vendor_samsung" path="vendor/samsung" remote="github" revision="refs/heads/gps_3.5" />
+  <!-- <project name="TheMuppets/proprietary_vendor_samsung" path="vendor/samsung" remote="github" revision="refs/heads/jf-next"/> -->
 </manifest>
