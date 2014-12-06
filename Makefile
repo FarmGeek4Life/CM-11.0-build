@@ -1,6 +1,29 @@
 SHELL := /bin/bash
 
 #. ./make_upload.bash
+12.0: 12.0_setup sync_clean ensure_prebuilts clean_build_uniques_12 build_12 upload_12
+
+build_12:
+#	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
+	pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
+
+upload_12:
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
+
+12.0_setup: setup
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
+	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
+	mv *jflte* oldBuilds/ ; \
+	popd
+
+clean_build_uniques_12:
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
+	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
+	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
+	rm -rf cm_jf*; \
+	rm -rf cm-*; \
+	popd
 
 all_auto: all shutdown
 
@@ -40,7 +63,7 @@ build_all: 11.0_setup patch_custom ensure_prebuilts build upload unpatch_custom
 
 base: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload
 
-vanilla: setup unpatch_custom clean_gerrit sync_clean patch_custom ensure_prebuilts build upload unpatch_highsense
+vanilla: setup unpatch_custom clean_gerrit sync_clean ensure_prebuilts build upload unpatch_highsense
 
 ensure_prebuilts:
 	pushd /home/brysoncg/android/system/vendor/cm/; [ ! -f proprietary/Term.apk ] && ./get-prebuilts || true; popd

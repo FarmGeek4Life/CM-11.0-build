@@ -311,6 +311,10 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
        `# device/samsung/jflte` \
        'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
+       `# frameworks/base` \
+       'http://review.cyanogenmod.org/#/c/62092/' `# Parallel shutdown` \
+       `# art` \
+       'http://review.cyanogenmod.org/#/c/62152/' `# art: fix boot in art mode` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
