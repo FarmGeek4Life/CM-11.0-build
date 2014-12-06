@@ -5,7 +5,7 @@ SHELL := /bin/bash
 
 build_12:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
-	pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	source CM-11.0-build/openjdk.bash; pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 upload_12:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
