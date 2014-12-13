@@ -8,7 +8,7 @@ build_12:
 	source CM-11.0-build/openjdk.bash; pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 upload_12:
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflte.zip),$$(ls *-UNOFFICIAL-jflte.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
+	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
 
 12.0_setup: setup
