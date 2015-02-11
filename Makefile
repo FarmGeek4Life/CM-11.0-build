@@ -1,11 +1,11 @@
 SHELL := /bin/bash
 
 #. ./make_upload.bash
-12.0: 12.0_setup sync_clean ensure_prebuilts clean_build_uniques_12 build_12 upload_12
+12.0: 12.0_setup sync_clean clean_build_uniques_12 build_12 upload_12
 
 build_12:
 #	Make sure the exit status is that of the 'brunch' command, not of the 'popd' command
-	source CM-11.0-build/openjdk.bash; pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
+	source /home/brysoncg/.bashrc; source CM-11.0-build/openjdk.bash; pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 upload_12:
 	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
@@ -23,6 +23,8 @@ clean_build_uniques_12:
 	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
 	rm -rf cm_jf*; \
 	rm -rf cm-*; \
+	rm obj/KERNEL_OBJ/vmlinux; \
+	rm system/build.prop; \
 	popd
 
 all_auto: all shutdown
