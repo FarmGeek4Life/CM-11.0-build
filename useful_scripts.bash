@@ -10,38 +10,6 @@ function reset_git_dir()
 
 export -f reset_git_dir
 
-function fix_highsense()
-{
-   #~/android/CM-11.0-build/high-touch-sensitivity/
-   #emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch &
-   #emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch &
-   #emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Hardware-Add-high-touch-sensitivity-support.patch &
-   #emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch &
-   PATCH_OPEN=0
-   
-   #~/android/system/packages/apps/Settings/
-   if [ -f ~/android/system/packages/apps/Settings/res/xml/display_settings.xml.orig ]; then
-      emacs ~/android/system/packages/apps/Settings/res/xml/display_settings.xml &
-      emacs ~/android/system/packages/apps/Settings/res/xml/display_settings.xml.orig &
-      emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch &
-      PATCH_OPEN=1
-   fi
-   if [ -f ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig ]; then
-      emacs ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java &
-      emacs ~/android/system/packages/apps/Settings/src/com/android/settings/DisplaySettings.java.orig &
-      if [ $PATCH_OPEN -eq 0 ]; then
-    emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch &
-      fi
-   fi
-   if [ -f ~/android/system/packages/apps/Settings/res/values/cm_strings.xml.orig ]; then
-      emacs ~/android/CM-11.0-build/high-touch-sensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch &
-      emacs ~/android/system/packages/apps/Settings/res/values/cm_strings.xml &
-      emacs ~/android/system/packages/apps/Settings/res/values/cm_strings.xml.orig &
-   fi
-}
-
-export -f fix_highsense
-
 function clean_custom_patches()
 { 
    VERSION_CODE="$1" # Valid values: depends on existing directories
@@ -51,18 +19,16 @@ function clean_custom_patches()
    TEXT_RED='\e[1;31m'   # Bold and Green
    TEXT_RESET='\e[0m'    # Reset
    
-   if [ "$VERSION_CODE" != "11.0" ]; then
+   if [ "$VERSION_CODE" != "12.1" ]; then
       #return 0
-      VERSION_CODE=11.0
+      VERSION_CODE=12.1
    fi
    
    # Enter the directory
    pushd $BASE_DIR
    
    AFFECTED_PATHS=(
-       'packages/apps/Settings'
-       'frameworks/opt/hardware'
-       'hardware/samsung'
+       'device/samsung/jf-common'
        )
    
    for i in ${AFFECTED_PATHS[@]}; do
@@ -132,20 +98,18 @@ function apply_custom_patches()
    
    pushd $BASE_DIR
    PATCH="git apply --whitespace=warn" # Can use 'patch', but 'git apply --whitespace=warn' is more powerful
-   PATCHES="/home/brysoncg/android/CM-11.0-build"
-   MY_PATCHES="/home/brysoncg/android/CM-11.0-build/my-patches"
+   PATCHES="/home/brysoncg/android/CM-build-tools"
+   MY_PATCHES="/home/brysoncg/android/CM-build-tools/my-patches"
    echo -ne "${TEXT_GREEN}"
    echo "Using patch file directory: ${PATCHES}"
    echo -ne "${TEXT_RESET}"
-   HIGHTOUCHSENSITIVITY=${PATCHES}/high-touch-sensitivity
-   DIALERLOOKUP=${PATCHES}/dialer-lookup
    
-   pushd packages/apps/Settings/
+   pushd device/samsung/jf-common
       echo "$(pwd)"
       echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Add-preferences-for-high-touch-sensitivity.patch"
+      echo -e "$PATCH_STAT:\t\t Device patches"
       echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Add-preferences-for-high-touch-sensitivity.patch
+      $PATCH $PATCH_ARGS < ${MY_PATCHES}/jf-common.patch
       if [ $? -ne 0 ]; then
          echo -ne "${TEXT_RED}"
          echo "PATCHING ERROR: Patch failed!!!!"
@@ -156,72 +120,6 @@ function apply_custom_patches()
          echo -ne "${TEXT_RED}"
          echo "PATCHING ERROR: Patch backup/reject files exist!"
          echo -e "$(ls -1 res/xml/display_settings.xml.*)"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 src/com/android/settings/DisplaySettings.java.* 2>/dev/null | wc -l) -gt 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch backup/reject files exist!"
-         echo -e "$(ls -1 src/com/android/settings/DisplaySettings.java.*)"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Auto-copied-translations-for-high-touch-sensitivity.patch"
-      echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Auto-copied-translations-for-high-touch-sensitivity.patch
-      if [ $? -ne 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch failed!!!!"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 res/values*/*xml.* 2>/dev/null | wc -l) -gt 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch backup/reject files exist!"
-         echo -e "$(ls -1 res/values*/*xml.*)"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-   popd
-   
-   pushd frameworks/opt/hardware/
-      echo "$(pwd)"
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Hardware-Add-high-touch-sensitivity-support.patch"
-      echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Hardware-Add-high-touch-sensitivity-support.patch
-      if [ $? -ne 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch failed!!!!"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 src/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
-    echo -ne "${TEXT_RED}"
-    echo "PATCHING ERROR: Patch backup/reject files exist!"
-    echo -e "$(ls -1 src/org/cyanogenmod/hardware/HighTouchSensitivity.java.*)"
-    echo -ne "${TEXT_RESET}"
-    PATCH_SUCCESS=1
-      fi
-   popd
-   
-   pushd hardware/samsung/
-      echo "$(pwd)"
-      echo -ne "${TEXT_GREEN}"
-      echo -e "$PATCH_STAT:\t\t HighTouchSensitivity/0001-Samsung-add-support-for-high-touch-sensitivity.patch"
-      echo -ne "${TEXT_RESET}"
-      $PATCH $PATCH_ARGS < ${HIGHTOUCHSENSITIVITY}/0001-Samsung-add-support-for-high-touch-sensitivity.patch
-      if [ $? -ne 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch failed!!!!"
-         echo -ne "${TEXT_RESET}"
-         PATCH_SUCCESS=1
-      fi
-      if [ $(ls -1 cmhw/org/cyanogenmod/hardware/HighTouchSensitivity.java.* 2>/dev/null | wc -l) -gt 0 ]; then
-         echo -ne "${TEXT_RED}"
-         echo "PATCHING ERROR: Patch backup/reject files exist!"
-         echo -e "$(ls -1 cmhw/org/cyanogenmod/hardware/HighTouchSensitivity.java.*)"
          echo -ne "${TEXT_RESET}"
          PATCH_SUCCESS=1
       fi
@@ -247,17 +145,17 @@ function clean_up_gerrit()
    TEXT_RED='\e[1;31m'   # Bold and Green
    TEXT_RESET='\e[0m'    # Reset
    
-   if [ "$VERSION_CODE" != "11.0" ]; then
+   if [ "$VERSION_CODE" != "12.1" ]; then
       #return 0
-      VERSION_CODE=11.0
+      VERSION_CODE=12.1
    fi
    
    # Enter the directory
    pushd $BASE_DIR
    
    AFFECTED_PATHS=(
-       'external/koush/Superuser'
-       'device/samsung/jflte'
+       'device/samsung/jf-common'
+       'device/samsung/jflteatt'
        )
    
    # 'vendor/cm': AVOID: prebuilts exist here, are downloaded. Makefile modified to auto-download if non-existent
@@ -284,9 +182,9 @@ function apply_gerrit_picks()
    VERSION_CODE="$1" # Valid values: depends on existing directories
    BASE_DIR="/home/brysoncg/android/system$VERSION_CODE"
    
-   if [ "$VERSION_CODE" != "11.0" ]; then
+   if [ "$VERSION_CODE" != "12.1" ]; then
       #return 0
-      VERSION_CODE=11.0
+      VERSION_CODE=12.1
    fi
    
    GERRIT_SUCCESS=0      # Shell style status: 0 for good, >0 for error
@@ -307,55 +205,18 @@ function apply_gerrit_picks()
    
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
-       `# external/koush/Superuser` \
-       'http://review.cyanogenmod.org/#/c/54969/' `# su: use bash as default shell` \
-       `# device/samsung/jflte` \
-       'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
-       `# frameworks/base` \
-       'http://review.cyanogenmod.org/#/c/62092/' `# Parallel shutdown` \
-       `# art` \
-       'http://review.cyanogenmod.org/#/c/62152/' `# art: fix boot in art mode` \
+       `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/98728/' `# rootdir: Fix LTE doesn't come up on boot` \
+       'http://review.cyanogenmod.org/#/c/98729/' `# sepolicy: More rild denials` \
+       `# device/samsung/jflteatt` \
+       'http://review.cyanogenmod.org/#/c/99095/' `# jflteatt: update fingerprint to 5.0.1` \
+       'http://review.cyanogenmod.org/#/c/99096/' `# jflteatt: Update default apn` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
       
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/60569/' `# jflte: ueventd.qcom.rc: cleanup` \
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/61607/' `# jflte: kk gps hal` \
-      # `# device/samsung/jflte` \
-      # 'http://review.cyanogenmod.org/#/c/61627/' `# jflte: update gps hal to kk_2.7-stable` \
-
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/53635/' `# jf-common: Fix GPS` \
-      # DO NOT USE ABOVE WITH NEW KERNEL PATCHES: particularly 56214: jf: Remove the GPS header
-      ########## REMEMBER WIFI MODULE PATCH IN HIGHSENSE PATCH GROUP!!!!!!
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56070/' `# jf: Updates for new kernel` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56167/' `# jf: Remove Vector hack` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56168/' `# jf: Remove modem links scripts` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56169/' `# jf: Update NFC configuration` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56170/' `# jf: Update init scripts` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56171/' `# jf: Update the blob list for ML4` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56213/' `# jf: Enable background scan support` \
-      # `# device/samsung/jf-common` \
-      # 'http://review.cyanogenmod.org/#/c/56214/' `# jf: Remove the GPS header` \
-      # ABOVE CURRENTLY BREAKS THE BUILD. FILES STILL RELY ON THE HEADER FILE.
-      # Problem: Requires use of new kernel branch: https://github.com/CyanogenMod/android_kernel_samsung_jf/tree/wip-ml4
-   # Didn't work - he has his directories named differently...
-   # Gerrit pulls from Xiao-Long Chen's gerrit...
-   #python3 /home/brysoncg/android/gerrit_changes.py \
-   #    `# packages/apps/Dialer` \
-   #    'http://gerrit.cxl.epac.to/#/c/1/' `# Dialer: Support for forward/reverse lookups` \
-   #    || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # Add the following line to the end of each cherry-pick enable fail-out of build if merge fails
    # || GERRIT_SUCCESS=1

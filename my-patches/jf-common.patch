@@ -1,0 +1,27 @@
+diff --git a/BoardConfigCommon.mk b/BoardConfigCommon.mk
+index 38ce8b7..bb838c6 100644
+--- a/BoardConfigCommon.mk
++++ b/BoardConfigCommon.mk
+@@ -107,7 +107,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
+ TARGET_USERIMAGES_USE_F2FS := true
+ BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00A00000
+ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00A00000
+-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1181114368
++BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1572864000
+ BOARD_USERDATAIMAGE_PARTITION_SIZE := 28651290624
+ BOARD_FLASH_BLOCK_SIZE := 131072
+ 
+diff --git a/overlay/frameworks/base/core/res/res/values/config.xml b/overlay/frameworks/base/core/res/res/values/config.xml
+index 7ff96aa..a031be2 100644
+--- a/overlay/frameworks/base/core/res/res/values/config.xml
++++ b/overlay/frameworks/base/core/res/res/values/config.xml
+@@ -172,6 +172,9 @@
+     <!-- The VoiceMail default value is displayed to my own number if it is true -->
+     <bool name="config_telephony_use_own_number_for_voicemail">true</bool>
+ 
++    <!-- Try allowing sim card hot swap for auto-recovery of "SIM Card Removed" error messages -->
++    <bool name="config_hotswapCapable">true</bool>
++
+     <!-- Boolean indicating if restoring network selection should be skipped -->
+     <!-- The restoring is handled by modem if it is true-->
+     <bool name="skip_restoring_network_selection">true</bool>
