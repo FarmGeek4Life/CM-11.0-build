@@ -154,6 +154,7 @@ function clean_up_gerrit()
    pushd $BASE_DIR
    
    AFFECTED_PATHS=(
+       'kernel/samsung/jf'
        'device/samsung/jf-common'
        'device/samsung/jflteatt'
        )
@@ -205,11 +206,12 @@ function apply_gerrit_picks()
    
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
+       `# kernel/samsung/jf` \
+       'http://review.cyanogenmod.org/#/c/98866/' `# Revert "Revert "smart_mtp_se6e8fa: add gamma control""` \
+       'http://review.cyanogenmod.org/#/c/98867/' `# Gammacontrol: don't force by default` \
+       'http://review.cyanogenmod.org/#/c/98868/' `# jf: enable gamma control` \
        `# device/samsung/jf-common` \
-       'http://review.cyanogenmod.org/#/c/98728/' `# rootdir: Fix LTE doesn't come up on boot` \
-       'http://review.cyanogenmod.org/#/c/98729/' `# sepolicy: More rild denials` \
        `# device/samsung/jflteatt` \
-       'http://review.cyanogenmod.org/#/c/99095/' `# jflteatt: update fingerprint to 5.0.1` \
        'http://review.cyanogenmod.org/#/c/99096/' `# jflteatt: Update default apn` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
