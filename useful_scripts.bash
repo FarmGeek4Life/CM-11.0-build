@@ -207,7 +207,6 @@ function apply_gerrit_picks()
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# kernel/samsung/jf` \
-       'http://review.cyanogenmod.org/#/c/98866/' `# Revert "Revert "smart_mtp_se6e8fa: add gamma control""` \
        'http://review.cyanogenmod.org/#/c/98867/' `# Gammacontrol: don't force by default` \
        'http://review.cyanogenmod.org/#/c/98868/' `# jf: enable gamma control` \
        `# device/samsung/jf-common` \
