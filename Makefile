@@ -14,29 +14,32 @@ build:
 	source /home/brysoncg/.bashrc; source CM-build-tools/openjdk.bash; pushd system; source build/envsetup.sh; (brunch jflteatt && STATUS=0) || STATUS=1; popd; exit $$STATUS
 
 upload:
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
+	-pushd ~/android/system/out/target/product/jflteatt/; curl -n -T $$(echo -n "{$$(ls *-UNOFFICIAL-jflteatt.zip),$$(ls *-UNOFFICIAL-jflteatt.zip.md5sum)}") ftp://192.168.9.1/data/cm_builds/; popd
+	-pushd ~/android/system/out/target/product/jflteatt/; rm -rf oldBuilds; popd
 
 dropbox:
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; cp *-UNOFFICIAL-jflteatt.zip* ~/Dropbox/ ; popd
+	-pushd ~/android/system/out/target/product/jflteatt/; cp *-UNOFFICIAL-jflteatt.zip* ~/Dropbox/ ; popd
 
 setup: setup_base
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
+	-pushd ~/android/system/out/target/product/jflteatt/; \
 	( [ ! -d oldBuilds ] && mkdir oldBuilds ); \
 	mv *jflteatt* oldBuilds/ ; \
 	popd
 
 setup_base:
 	. useful_scripts.bash
-#	-pushd /home/brysoncg/android/CM-build-tools/; \
-#	git pull; \
-#	popd
-#	-pushd /home/brysoncg/android/xiaolong_chen/hudson/; \
+
+update_patches:
+	-pushd ~/android/CM-build-tools/; \
+	git pull; \
+	popd
+	. ~/android/useful_scripts.bash
+#	-pushd ~/android/xiaolong_chen/hudson/; \
 #	git pull; \
 #	popd
 
 clean_build_uniques:
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/; \
+	-pushd ~/android/system/out/target/product/jflteatt/; \
 	rm -rf obj/PACKAGING/apkcerts_intermediates/cm_jf*; \
 	rm -rf obj/PACKAGING/target_files_intermediates/cm_jf*; \
 	rm -rf cm_jf*; \
@@ -46,15 +49,15 @@ clean_build_uniques:
 	popd
 
 #. ./make_upload.bash
-12.0: setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom clean_build_uniques build upload unpatch_custom
+12.0: setup unpatch_custom clean_gerrit update_patches sync_clean patch_gerrit patch_custom clean_build_uniques build upload unpatch_custom
 
-autosync: setup unpatch_custom clean_gerrit sync_clean patch_gerrit patch_custom
+autosync: setup unpatch_custom clean_gerrit update_patches sync_clean patch_gerrit patch_custom
 
-nosync: unpatch_custom clean_gerrit patch_gerrit patch_custom build unpatch_custom
+nosync: unpatch_custom clean_gerrit update_patches patch_gerrit patch_custom build unpatch_custom
 
 build_all: setup patch_custom build upload unpatch_custom
 
-base: setup unpatch_custom clean_gerrit sync_clean build upload
+base: setup unpatch_custom clean_gerrit update_patches sync_clean build upload
 
 vanilla: base
 
@@ -79,14 +82,14 @@ sync_clean:
 
 adb_push:
 	@read -p "Connect Phone via USB!!!. Press enter to continue: "
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/ ; \
+	-pushd ~/android/system/out/target/product/jflteatt/ ; \
 	adb push *-UNOFFICIAL-jflte.zip /storage/sdcard1/updates/ ; \
 	adb push *-UNOFFICIAL-jflte.zip.md5sum /storage/sdcard1/updates/ ; \
 	popd
 
 adb_push_net:
 	@read -p "Enable ADB Networking!!!. Press enter to continue: "
-	-pushd /home/brysoncg/android/system/out/target/product/jflteatt/ ; \
+	-pushd ~/android/system/out/target/product/jflteatt/ ; \
 	adb connect 192.168.9.210 ; \
 	sleep 2 ; \
 	adb push *-UNOFFICIAL-jflte.zip /storage/sdcard1/updates/ ; \
