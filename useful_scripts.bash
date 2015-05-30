@@ -212,7 +212,8 @@ function apply_gerrit_picks()
        'http://review.cyanogenmod.org/#/c/98868/' `# jf: enable gamma control` \
        `# device/samsung/jf-common` \
        `# device/samsung/jflteatt` \
-       'http://review.cyanogenmod.org/#/c/99096/' `# jflteatt: Update default apn` \
+       'http://review.cyanogenmod.org/#/c/99664/' `# jflteatt: overlay all valid network types` \
+       'http://review.cyanogenmod.org/#/c/99665/' `# jflteatt: Remove default APN setting` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
