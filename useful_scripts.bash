@@ -207,14 +207,14 @@ function apply_gerrit_picks()
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# kernel/samsung/jf` \
-       'http://review.cyanogenmod.org/#/c/98867/' `# Gammacontrol: don't force by default` \
-       'http://review.cyanogenmod.org/#/c/98868/' `# jf: enable gamma control` \
        `# device/samsung/jf-common` \
        `# device/samsung/jflteatt` \
        'http://review.cyanogenmod.org/#/c/99096/' `# jflteatt: Update default apn` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    
    # For bash with adb: To set to bash: setprop persist.sys.adb.shell /system/xbin/bash
+   #    'http://review.cyanogenmod.org/#/c/98867/' `# Gammacontrol: don't force by default` \
+   #    'http://review.cyanogenmod.org/#/c/98868/' `# jf: enable gamma control` \
    
    TEMP_SUCCESS=$GERRIT_SUCCESS
       
