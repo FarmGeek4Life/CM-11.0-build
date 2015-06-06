@@ -209,7 +209,6 @@ function apply_gerrit_picks()
        `# kernel/samsung/jf` \
        `# device/samsung/jf-common` \
        `# device/samsung/jflteatt` \
-       'http://review.cyanogenmod.org/#/c/99664/' `# jflteatt: overlay all valid network types` \
        'http://review.cyanogenmod.org/#/c/99665/' `# jflteatt: Remove default APN setting` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
    

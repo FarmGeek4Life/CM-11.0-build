@@ -1,6 +1,8 @@
 SHELL := /bin/bash
 
-auto_suspend: 12.1
+auto_suspend: 12.1 suspend
+
+suspend:
 	systemctl suspend -i
 
 12.1: 12.0
