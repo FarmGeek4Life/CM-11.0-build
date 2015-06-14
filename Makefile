@@ -3,7 +3,8 @@ SHELL := /bin/bash
 auto_suspend: 12.1 suspend
 
 suspend:
-	systemctl suspend -i
+#       "suspend" is considered failed when the system wakes; prevent the failure report
+	systemctl suspend -i || exit 0
 
 12.1: 12.0
 
