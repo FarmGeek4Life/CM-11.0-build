@@ -207,7 +207,9 @@ function apply_gerrit_picks()
    export GERRIT_URL="http://review.cyanogenmod.org"
    python3 /home/brysoncg/android/gerrit_changes.py \
        `# kernel/samsung/jf` \
+       'http://review.cyanogenmod.org/#/c/101978/' `# revert "jf: disable logger"` \
        `# device/samsung/jf-common` \
+       'http://review.cyanogenmod.org/#/c/101976/' `# Revert "Revert "jf-common: disable LOGD""` \
        `# device/samsung/jflteatt` \
        'http://review.cyanogenmod.org/#/c/99665/' `# jflteatt: Remove default APN setting` \
        || { GERRIT_SUCCESS=1; echo -e "${TEXT_RED}*** FAILED TO APPLY PATCHES ***${TEXT_RESET}"; }
